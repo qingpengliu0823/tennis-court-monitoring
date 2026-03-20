@@ -51,6 +51,7 @@ model Monitor {
   name             String
   courtId          String    @map("court_id")
   enabled          Boolean   @default(true)
+  serviceType      String?   @map("service_type") // e.g. "Garden Halls Resident", "Student", etc.
   daysOfWeek       Int[]     @map("days_of_week") // 0=Sun, 1=Mon, ..., 6=Sat
   timeFrom         String?   @map("time_from") // HH:MM
   timeTo           String?   @map("time_to")   // HH:MM

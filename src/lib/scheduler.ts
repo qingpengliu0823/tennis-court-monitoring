@@ -65,22 +65,26 @@ export async function runScheduler(): Promise<{
       return elapsed >= m.checkIntervalMin * 60 * 1000;
     });
 
-    // Group monitors by court to avoid duplicate scrapes
-    const courtMonitors = new Map<string, typeof dueMonitors>();
+    // Group monitors by court+serviceType to avoid duplicate scrapes
+    // (different service types on Microsoft Bookings may have different availability)
+    const groupedMonitors = new Map<string, typeof dueMonitors>();
     for (const m of dueMonitors) {
-      const existing = courtMonitors.get(m.courtId) || [];
+      const key = `${m.courtId}|${m.serviceType ?? ""}`;
+      const existing = groupedMonitors.get(key) || [];
       existing.push(m);
-      courtMonitors.set(m.courtId, existing);
+      groupedMonitors.set(key, existing);
     }
 
-    // Process courts with concurrency limit
-    const courtIds = Array.from(courtMonitors.keys());
-    for (let i = 0; i < courtIds.length; i += MAX_CONCURRENT) {
-      const batch = courtIds.slice(i, i + MAX_CONCURRENT);
+    // Process groups with concurrency limit
+    const groupKeys = Array.from(groupedMonitors.keys());
+    for (let i = 0; i < groupKeys.length; i += MAX_CONCURRENT) {
+      const batch = groupKeys.slice(i, i + MAX_CONCURRENT);
       await Promise.allSettled(
-        batch.map(async (courtId) => {
-          const courtMonitorsList = courtMonitors.get(courtId)!;
-          const court = courtMonitorsList[0].court;
+        batch.map(async (groupKey) => {
+          const groupMonitors = groupedMonitors.get(groupKey)!;
+          const court = groupMonitors[0].court;
+          const courtId = groupMonitors[0].courtId;
+          const serviceType = groupMonitors[0].serviceType;
 
           const adapter = getAdapter(court.bookingSystem);
           if (!adapter) {
@@ -88,11 +92,17 @@ export async function runScheduler(): Promise<{
             return;
           }
 
+          // Merge serviceType into metadata for the adapter
+          const metadata = {
+            ...((court.metadata as Record<string, unknown>) ?? {}),
+            ...(serviceType ? { serviceType } : {}),
+          };
+
           const scrapeStart = Date.now();
           const scrapeResult = await adapter.scrape(
             courtId,
             court.bookingUrl,
-            (court.metadata as Record<string, unknown>) ?? undefined
+            metadata
           );
 
           // Log the scrape
@@ -118,8 +128,8 @@ export async function runScheduler(): Promise<{
           // Store new snapshot
           await storeSnapshot(courtId, scrapeResult.slots);
 
-          // Process each monitor for this court
-          for (const monitor of courtMonitorsList) {
+          // Process each monitor for this court+serviceType group
+          for (const monitor of groupMonitors) {
             result.monitorsChecked++;
 
             // Filter slots matching this monitor's criteria
@@ -127,7 +137,7 @@ export async function runScheduler(): Promise<{
 
             if (matchingSlots.length > 0) {
               const sent = await notifyNewSlots(
-                { ...monitor, court: { name: court.name, bookingUrl: court.bookingUrl } },
+                { ...monitor, court: { name: court.name, bookingUrl: court.bookingUrl, metadata: court.metadata } },
                 matchingSlots
               );
               result.alertsSent += sent;

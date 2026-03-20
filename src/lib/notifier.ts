@@ -10,7 +10,7 @@ interface MonitorWithCourt {
   lastNotifiedAt: Date | null;
   notifyChannel: string;
   notifyTarget: string | null;
-  court: { name: string; bookingUrl: string };
+  court: { name: string; bookingUrl: string; metadata?: unknown };
 }
 
 export async function notifyNewSlots(
@@ -37,7 +37,7 @@ export async function notifyNewSlots(
     ...slotLines,
     newSlots.length > 10 ? `  ...and ${newSlots.length - 10} more` : "",
     "",
-    `<a href="${monitor.court.bookingUrl}">Book now</a>`,
+    `<a href="${(monitor.court.metadata as Record<string, unknown>)?.deepLink as string || monitor.court.bookingUrl}">Book now</a>`,
   ]
     .filter(Boolean)
     .join("\n");

@@ -10,170 +10,100 @@ async function getBrowser(): Promise<Browser> {
   return browserInstance;
 }
 
-interface VenueSpace {
-  venue_id: number;
-  name: string;
-  total_spaces: number;
-  scraped_at: string;
-  freshness: string;
-  booking_url: string;
-}
-
-interface DayData {
-  day: string;
-  total_spaces: number;
-  spaces: VenueSpace[];
-}
-
-interface RowData {
-  hour: number;
-  fromTime: string;
-  [key: string]: unknown;
-}
-
-interface TableData {
-  columns: unknown[];
-  rows: RowData[];
-}
-
 /**
- * Extract availability data from the localtenniscourts.com SSR-embedded JSON.
- * The page uses TanStack Router hydration — data is in script tags as serialized JSON.
+ * Scrape localtenniscourts.com availability grid.
+ *
+ * Page structure (as of March 2026):
+ *   - First <table>: header row only (Time, Fri 20, Sat 21, ...)
+ *   - Second <table>: <tbody> with 17 rows (06:00–22:00), 9 cells each
+ *     Cell 0 = time (HH:MM), cells 1–8 = day columns
+ *     Each day cell contains <span class="font-semibold">N</span> (court count) or "-"
  */
 const localTennisCourtsAdapter: CourtAdapter = {
   name: "localtenniscourts",
 
-  async scrape(courtId: string, bookingUrl: string, metadata?: Record<string, unknown>): Promise<ScrapeResult> {
+  async scrape(courtId: string, bookingUrl: string): Promise<ScrapeResult> {
     const start = Date.now();
-    const targetVenueId = metadata?.venueId as number | undefined;
-    const slots: ScrapedSlot[] = [];
-
     const browser = await getBrowser();
     const page = await browser.newPage();
 
     try {
       await page.goto(bookingUrl, { waitUntil: "networkidle", timeout: 30000 });
+      await page.waitForTimeout(1500);
 
-      // Extract the embedded availability data from the page
-      const data = await page.evaluate(() => {
-        // Look for script tags containing tableData
-        const scripts = document.querySelectorAll("script");
-        for (const script of scripts) {
-          const text = script.textContent || "";
-          if (text.includes("tableData") && text.includes("rows")) {
-            // Try to extract the JSON data from TanStack hydration format
-            // The data is serialized in a complex format, so we parse it carefully
-            const tableMatch = text.match(/"tableData"\s*:\s*(\{[\s\S]*?"rows"\s*:\s*\[[\s\S]*?\]\s*\})/);
-            if (tableMatch) {
-              try {
-                return JSON.parse(tableMatch[1]);
-              } catch {
-                // Continue to next approach
-              }
+      const extracted = await page.evaluate(() => {
+        const tables = document.querySelectorAll("table");
+        if (tables.length < 2) return { error: "Expected 2 tables, found " + tables.length, headers: [], rows: [] };
+
+        // Headers from first table
+        const headerCells = tables[0].querySelectorAll("th");
+        const headers = Array.from(headerCells).map((th) => th.textContent?.trim() || "");
+
+        // Data rows from second table's tbody
+        const tbody = tables[1].querySelector("tbody");
+        if (!tbody) return { error: "No tbody in second table", headers, rows: [] };
+
+        const trs = tbody.querySelectorAll("tr");
+        const rows: Array<{ time: string; cells: Array<{ count: number; text: string }> }> = [];
+
+        trs.forEach((tr) => {
+          const tds = tr.querySelectorAll("td");
+          if (tds.length === 0) return;
+
+          const time = tds[0].textContent?.trim() || "";
+          const cells: Array<{ count: number; text: string }> = [];
+
+          for (let i = 1; i < tds.length; i++) {
+            const semibold = tds[i].querySelector(".font-semibold");
+            const text = semibold?.textContent?.trim() || tds[i].textContent?.trim() || "";
+            let count = 0;
+            if (text !== "-" && text !== "") {
+              // Handle "25+" as 25
+              count = parseInt(text.replace("+", ""), 10) || 0;
             }
+            cells.push({ count, text });
           }
-        }
 
-        // Fallback: try to get data from the DOM structure
-        return null;
+          rows.push({ time, cells });
+        });
+
+        return { error: null, headers, rows };
       });
 
-      if (!data?.rows) {
-        // Fallback: scrape the DOM directly for availability info
-        const domSlots = await page.evaluate((venueId: number | undefined) => {
-          const results: Array<{
-            date: string;
-            startTime: string;
-            endTime: string;
-            available: boolean;
-            courtLabel: string;
-            totalCourts: number;
-            venueName: string;
-            bookingUrl: string;
-          }> = [];
+      if (extracted.error) {
+        return {
+          slots: [],
+          adapter: "localtenniscourts",
+          durationMs: Date.now() - start,
+          error: extracted.error,
+        };
+      }
 
-          // Look for availability table rows
-          const rows = document.querySelectorAll("tr, [data-row], [class*='row']");
-          rows.forEach((row) => {
-            const text = row.textContent || "";
-            // Parse if it contains time-like patterns
-            if (/\d{2}:\d{2}/.test(text)) {
-              // Extract what we can from the row
-              const timeMatch = text.match(/(\d{2}:\d{2})/);
-              if (timeMatch) {
-                results.push({
-                  date: "",
-                  startTime: timeMatch[1],
-                  endTime: "",
-                  available: true,
-                  courtLabel: "",
-                  totalCourts: 0,
-                  venueName: "",
-                  bookingUrl: "",
-                });
-              }
-            }
-          });
+      // Parse headers to dates: "Fri 20" -> YYYY-MM-DD
+      // Headers[0] = "Time", Headers[1..] = "Day DD"
+      const dateHeaders = extracted.headers.slice(1).map((h) => parseHeaderToDate(h));
 
-          return results;
-        }, targetVenueId);
+      const slots: ScrapedSlot[] = [];
+      for (const row of extracted.rows) {
+        const startTime = row.time; // "06:00"
+        const hour = parseInt(startTime.split(":")[0], 10);
+        const endTime = `${String(hour + 1).padStart(2, "0")}:00`;
 
-        if (domSlots.length > 0) {
-          slots.push(
-            ...domSlots.map((s) => ({
-              date: s.date,
-              startTime: s.startTime,
-              endTime: s.endTime,
-              available: s.available,
-              courtLabel: s.courtLabel || undefined,
-              totalCourts: s.totalCourts || undefined,
-            }))
-          );
-        }
-      } else {
-        // Parse the structured JSON data
-        const tableData = data as TableData;
-        for (const row of tableData.rows) {
-          const fromTime = row.fromTime;
-          const hour = row.hour;
-          const endTime = `${String(hour + 1).padStart(2, "0")}:00`;
+        row.cells.forEach((cell, i) => {
+          const date = dateHeaders[i];
+          if (!date) return;
 
-          // Iterate over day columns (keys like "day2003", "day2103", etc.)
-          for (const [key, value] of Object.entries(row)) {
-            if (!key.startsWith("day") || typeof value !== "object" || !value) continue;
-
-            const dayData = value as DayData;
-            if (!dayData.spaces || !dayData.day) continue;
-
-            // Parse "20 Mar" format to YYYY-MM-DD
-            const date = parseDayString(dayData.day);
-            if (!date) continue;
-
-            // If targeting a specific venue, filter
-            const venues = targetVenueId
-              ? dayData.spaces.filter((s) => s.venue_id === targetVenueId)
-              : dayData.spaces;
-
-            for (const venue of venues) {
-              if (venue.total_spaces > 0) {
-                slots.push({
-                  date,
-                  startTime: fromTime,
-                  endTime,
-                  available: true,
-                  courtLabel: venue.name,
-                  totalCourts: venue.total_spaces,
-                  rawData: {
-                    venueId: venue.venue_id,
-                    freshness: venue.freshness,
-                    bookingUrl: venue.booking_url,
-                    scrapedAt: venue.scraped_at,
-                  },
-                });
-              }
-            }
+          if (cell.count > 0) {
+            slots.push({
+              date,
+              startTime,
+              endTime,
+              available: true,
+              courtLabel: `${cell.text} courts`,
+              totalCourts: cell.count,
+            });
           }
-        }
+        });
       }
 
       return {
@@ -195,23 +125,30 @@ const localTennisCourtsAdapter: CourtAdapter = {
   },
 };
 
-function parseDayString(dayStr: string): string | null {
-  // Parse "20 Mar" or "20 March" to YYYY-MM-DD
-  const months: Record<string, string> = {
-    Jan: "01", Feb: "02", Mar: "03", Apr: "04", May: "05", Jun: "06",
-    Jul: "07", Aug: "08", Sep: "09", Oct: "10", Nov: "11", Dec: "12",
-  };
-
-  const match = dayStr.match(/(\d{1,2})\s+(\w{3})/);
+/**
+ * Parse column header like "Fri 20" or "Mon 23" into YYYY-MM-DD.
+ * Assumes dates are in the current/next month relative to today.
+ */
+function parseHeaderToDate(header: string): string | null {
+  const match = header.match(/\w+\s+(\d{1,2})/);
   if (!match) return null;
 
-  const day = match[1].padStart(2, "0");
-  const monthStr = match[2];
-  const month = months[monthStr];
-  if (!month) return null;
+  const dayOfMonth = parseInt(match[1], 10);
+  const now = new Date();
+  const year = now.getFullYear();
+  const month = now.getMonth(); // 0-indexed
 
-  const year = new Date().getFullYear();
-  return `${year}-${month}-${day}`;
+  // Try current month first; if the day is far in the past, use next month
+  let candidate = new Date(year, month, dayOfMonth);
+  const diffDays = (candidate.getTime() - now.getTime()) / (1000 * 60 * 60 * 24);
+  if (diffDays < -14) {
+    candidate = new Date(year, month + 1, dayOfMonth);
+  }
+
+  const y = candidate.getFullYear();
+  const m = String(candidate.getMonth() + 1).padStart(2, "0");
+  const d = String(candidate.getDate()).padStart(2, "0");
+  return `${y}-${m}-${d}`;
 }
 
 export { localTennisCourtsAdapter };

@@ -1,4 +1,5 @@
 import { prisma } from "./prisma";
+import { Prisma } from "@/generated/prisma/client";
 import type { ScrapedSlot } from "./scrapers/types";
 
 /**
@@ -59,7 +60,7 @@ export async function storeSnapshot(
     available: s.available,
     courtLabel: s.courtLabel ?? null,
     totalCourts: s.totalCourts ?? null,
-    rawData: s.rawData ?? null,
+    rawData: (s.rawData as Prisma.InputJsonValue) ?? Prisma.JsonNull,
   }));
 
   await prisma.slotSnapshot.createMany({ data });

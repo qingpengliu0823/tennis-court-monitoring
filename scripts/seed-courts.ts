@@ -12,9 +12,16 @@ async function main() {
       name: "Garden Halls Tennis",
       slug: "garden-halls",
       bookingSystem: "microsoft_bookings",
-      bookingUrl: "https://outlook.office365.com/owa/calendar/GardenHallsTennis@arden.ac.uk/bookings/",
+      bookingUrl: "https://outlook.office365.com/owa/calendar/GardenHallsTennis@upp-ltd.com/bookings/",
       location: "Garden Halls, Cartwright Gardens, London WC1H 9EN",
-      metadata: {},
+      metadata: {
+        serviceTypes: [
+          { name: "Garden Halls Resident", duration: "1 hour", price: "Free" },
+          { name: "Student", duration: "1 hour", price: "£5/hr" },
+          { name: "WC1 Resident", duration: "1 hour", price: "£5/hr" },
+          { name: "Visitor", duration: "1 hour", price: "£10/hr" },
+        ],
+      },
     },
     {
       name: "Clissold Park",
@@ -23,7 +30,7 @@ async function main() {
       bookingUrl: "https://www.localtenniscourts.com/london",
       venueId: "clissold-park",
       location: "Clissold Park, Stoke Newington, London N16",
-      metadata: { venueId: 1 },
+      metadata: { venueId: 1, deepLink: "https://clubspark.lta.org.uk/ClissoldParkHackney/Booking/BookByDate" },
     },
     {
       name: "Highbury Fields",
@@ -31,7 +38,7 @@ async function main() {
       bookingSystem: "localtenniscourts",
       bookingUrl: "https://www.localtenniscourts.com/london",
       location: "Highbury Fields, London N5",
-      metadata: { venueId: 2 },
+      metadata: { venueId: 2, deepLink: "https://clubspark.lta.org.uk/HighburyFieldsLondon" },
     },
     {
       name: "London Fields",
@@ -39,7 +46,7 @@ async function main() {
       bookingSystem: "localtenniscourts",
       bookingUrl: "https://www.localtenniscourts.com/london",
       location: "London Fields, Hackney, London E8",
-      metadata: { venueId: 3 },
+      metadata: { venueId: 3, deepLink: "https://clubspark.lta.org.uk/LondonFieldsPark/Booking/BookByDate" },
     },
     {
       name: "Finsbury Park",
@@ -47,7 +54,7 @@ async function main() {
       bookingSystem: "localtenniscourts",
       bookingUrl: "https://www.localtenniscourts.com/london",
       location: "Finsbury Park, London N4",
-      metadata: { venueId: 4 },
+      metadata: { venueId: 4, deepLink: "https://clubspark.lta.org.uk/FinsburyPark/Booking/BookByDate" },
     },
     {
       name: "Regent's Park",
@@ -55,7 +62,7 @@ async function main() {
       bookingSystem: "localtenniscourts",
       bookingUrl: "https://www.localtenniscourts.com/london",
       location: "Regent's Park, London NW1",
-      metadata: { venueId: 5 },
+      metadata: { venueId: 5, deepLink: "https://clubspark.lta.org.uk/RegentsPark" },
     },
     {
       name: "Hyde Park",
@@ -63,7 +70,7 @@ async function main() {
       bookingSystem: "localtenniscourts",
       bookingUrl: "https://www.localtenniscourts.com/london",
       location: "Hyde Park, London W2",
-      metadata: { venueId: 6 },
+      metadata: { venueId: 6, deepLink: "https://clubspark.lta.org.uk/HydePark" },
     },
   ];
 
