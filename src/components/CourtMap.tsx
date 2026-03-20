@@ -6,27 +6,25 @@ import L from "leaflet";
 import "leaflet/dist/leaflet.css";
 import { parseCourtMeta, distanceFromUCL, formatDistance } from "@/lib/court-utils";
 
-// Fix default marker icons for leaflet
-L.Icon.Default.mergeOptions({
-  iconRetinaUrl: "/leaflet/marker-icon-2x.png",
-  iconUrl: "/leaflet/marker-icon.png",
-  shadowUrl: "/leaflet/marker-shadow.png",
-});
+function makeIcon(selected: boolean, enabled: boolean) {
+  const w = selected ? 30 : 24;
+  const h = selected ? 40 : 32;
+  const color = !enabled ? "#94a3b8" : selected ? "#2563eb" : "#10b981";
+  const shadow = selected ? "0.35" : "0.25";
+  const stroke = 2;
 
-function makeIcon(selected: boolean) {
-  const color = selected ? "hsl(221, 83%, 53%)" : "hsl(215, 16%, 47%)";
-  const size = selected ? 14 : 10;
   return L.divIcon({
     className: "",
-    html: `<div style="
-      width:${size}px;height:${size}px;
-      background:${color};
-      border:2px solid white;
-      border-radius:50%;
-      box-shadow:0 1px 4px rgba(0,0,0,0.4);
-    "></div>`,
-    iconSize: [size, size],
-    iconAnchor: [size / 2, size / 2],
+    html: `<div style="filter:drop-shadow(0 2px 4px rgba(0,0,0,${shadow}))">
+      <svg width="${w}" height="${h}" viewBox="0 0 24 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M12 0C5.4 0 0 5.4 0 12c0 9 12 20 12 20s12-11 12-20C24 5.4 18.6 0 12 0z"
+              fill="${color}" stroke="white" stroke-width="${stroke}"/>
+        <circle cx="12" cy="11" r="4.5" fill="white" fill-opacity="0.9"/>
+      </svg>
+    </div>`,
+    iconSize: [w, h],
+    iconAnchor: [w / 2, h],
+    popupAnchor: [0, -h + 6],
   });
 }
 
@@ -35,6 +33,7 @@ interface Court {
   name: string;
   slug: string;
   bookingUrl: string;
+  enabled: boolean;
   metadata: unknown;
 }
 
@@ -91,7 +90,7 @@ export default function CourtMap({
           <Marker
             key={court.id}
             position={[meta.lat!, meta.lng!]}
-            icon={makeIcon(court.id === selectedId)}
+            icon={makeIcon(court.id === selectedId, court.enabled)}
             eventHandlers={{ click: () => onSelect(court.id) }}
           >
             <Popup>
