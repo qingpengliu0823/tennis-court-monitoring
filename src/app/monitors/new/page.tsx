@@ -4,8 +4,13 @@ import { getCourts } from "../../actions/courts";
 
 export const dynamic = "force-dynamic";
 
-export default async function NewMonitorPage() {
+export default async function NewMonitorPage({
+  searchParams,
+}: {
+  searchParams: Promise<{ court?: string }>;
+}) {
   const courts = await getCourts();
+  const { court: preselectedCourtId } = await searchParams;
 
   return (
     <div className="space-y-6">
@@ -21,6 +26,7 @@ export default async function NewMonitorPage() {
               name: c.name,
               serviceTypes: ((c.metadata as Record<string, unknown>)?.serviceTypes as Array<{ name: string; label?: string; price: string }>) ?? null,
             }))}
+            defaultCourtId={preselectedCourtId}
           />
         </CardContent>
       </Card>

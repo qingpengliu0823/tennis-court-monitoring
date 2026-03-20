@@ -32,13 +32,15 @@ interface MonitorDefaults {
 export function MonitorForm({
   courts,
   defaults,
+  defaultCourtId,
 }: {
   courts: CourtOption[];
   defaults?: MonitorDefaults;
+  defaultCourtId?: string;
 }) {
   const router = useRouter();
   const [saving, setSaving] = useState(false);
-  const [selectedCourtId, setSelectedCourtId] = useState(defaults?.courtId ?? "");
+  const [selectedCourtId, setSelectedCourtId] = useState(defaults?.courtId ?? defaultCourtId ?? "");
 
   const selectedCourt = courts.find((c) => c.id === selectedCourtId);
   const serviceTypes = selectedCourt?.serviceTypes ?? null;

@@ -98,14 +98,22 @@ export default function CourtMap({
               <div className="text-sm">
                 <strong>{court.name}</strong>
                 <div className="text-gray-500">{formatDistance(dist)} from UCL</div>
-                <a
-                  href={court.bookingUrl}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="text-blue-600 underline"
-                >
-                  Book now
-                </a>
+                <div style={{ display: "flex", gap: "8px", marginTop: "4px" }}>
+                  <a
+                    href={court.bookingUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-blue-600 underline"
+                  >
+                    Book
+                  </a>
+                  <a
+                    href={`/monitors/new?court=${court.id}`}
+                    className="text-blue-600 underline"
+                  >
+                    Monitor
+                  </a>
+                </div>
               </div>
             </Popup>
           </Marker>

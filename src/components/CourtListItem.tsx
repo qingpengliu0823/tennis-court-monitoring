@@ -1,5 +1,6 @@
 "use client";
 
+import Link from "next/link";
 import { Badge } from "@/components/ui/badge";
 import { parseCourtMeta, distanceFromUCL, formatDistance } from "@/lib/court-utils";
 import { cn } from "@/lib/utils";
@@ -9,6 +10,7 @@ interface Court {
   name: string;
   slug: string;
   bookingSystem: string;
+  bookingUrl: string;
   location: string | null;
   metadata: unknown;
   enabled: boolean;
@@ -33,10 +35,10 @@ export function CourtListItem({
     : null;
 
   return (
-    <button
+    <div
       onClick={onSelect}
       className={cn(
-        "w-full text-left px-4 py-3 border-l-3 transition-colors hover:bg-muted/50",
+        "w-full text-left px-4 py-3 border-l-3 transition-colors hover:bg-muted/50 cursor-pointer",
         selected
           ? "border-l-blue-500 bg-blue-50 dark:bg-blue-950/20"
           : "border-l-transparent"
@@ -65,6 +67,24 @@ export function CourtListItem({
           {court.enabled ? "Live" : "Disabled"}
         </Badge>
       </div>
-    </button>
+      {selected && (
+        <div className="flex gap-3 mt-2 text-xs" onClick={(e) => e.stopPropagation()}>
+          <a
+            href={court.bookingUrl}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="text-blue-600 hover:underline"
+          >
+            Book
+          </a>
+          <Link
+            href={`/monitors/new?court=${court.id}`}
+            className="text-blue-600 hover:underline"
+          >
+            Monitor
+          </Link>
+        </div>
+      )}
+    </div>
   );
 }

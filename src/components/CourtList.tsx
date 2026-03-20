@@ -8,6 +8,7 @@ interface Court {
   name: string;
   slug: string;
   bookingSystem: string;
+  bookingUrl: string;
   location: string | null;
   metadata: unknown;
   enabled: boolean;
