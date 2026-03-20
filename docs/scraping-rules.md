@@ -8,7 +8,7 @@ Last verified: 2026-03-20
 |---------|--------|--------|
 | `microsoft_bookings` | Working | Garden Halls |
 | `better` | Working | Islington Tennis Centre |
-| `clubspark` | Working | 9 enabled, 4 disabled (login required) |
+| `clubspark` | Working | 11 enabled, 5 disabled (login required) |
 
 ---
 
@@ -184,7 +184,7 @@ The scraper doesn't use these — it constructs URLs directly for 7 days forward
 
 ## ClubSpark/LTA Courts (Adapter: `clubspark`)
 
-**Covers:** Finsbury Park, Clissold Park, Hackney Downs, London Fields, Geraldine Mary Harmsworth, Spring Hill, Elthorne, Southwark Park, Clapham Common (9 enabled). Paddington Rec, Rosemary Gardens, Archbishop's Park, Kennington Park disabled (require login).
+**Covers:** Finsbury Park, Clissold Park, Hackney Downs, London Fields, Geraldine Mary Harmsworth, Spring Hill, Elthorne, Southwark Park, Clapham Common, Bethnal Green Gardens, King Edward Memorial Park (11 enabled). Paddington Rec, Rosemary Gardens, Archbishop's Park, Kennington Park, St John's Park disabled (require login).
 
 **Status:** Fully working. Scans 7 days forward, extracts all time slots with availability, pricing, and court labels.
 
@@ -256,7 +256,8 @@ The adapter uses a string-based `page.evaluate()` (not a function callback) to a
 
 ### Venue-specific notes
 
-- **Some venues require ClubSpark login** (redirect to auth.clubspark.uk). These are disabled in the database. Affected: Paddington Recreation Ground, Rosemary Gardens, Tennis In Lambeth (Archbishop's Park + Kennington Park).
+- **Some venues require ClubSpark login** (redirect to auth.clubspark.uk). These are disabled in the database. Affected: Paddington Recreation Ground, Rosemary Gardens, Tennis In Lambeth (Archbishop's Park + Kennington Park), St John's Park.
+- **Tower Hamlets courts** (Bethnal Green Gardens, St John's Park, King Edward Memorial Park) migrated from Courtside (tennistowerhamlets.com, now defunct/404) to ClubSpark. Same adapter works.
 - **Millfields Park** — ClubSpark URL returns 404. Removed from monitoring.
 - **Archbishop's Park and Kennington Park** share the same ClubSpark org (Tennis In Lambeth).
 

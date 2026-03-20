@@ -9,7 +9,7 @@
 | Microsoft Bookings | `microsoft_bookings` | Working |
 | Better/GLL | `better` | Working |
 | ClubSpark/LTA | `clubspark` | Working (9 enabled, 4 need login) |
-| Courtside (Tower Hamlets) | `courtside` | **Needs adapter** |
+| Courtside (Tower Hamlets) | `clubspark` | Migrated to ClubSpark (2 enabled, 1 needs login) |
 | Camden Active | `camden_active` | **Needs adapter** |
 
 ## Courts
@@ -64,8 +64,8 @@
 - **Specs:** Adults £4-5 off-peak
 
 ### 8. Bethnal Green Gardens
-- **System:** Courtside (Tower Hamlets)
-- **Booking URL:** `https://tennistowerhamlets.com/book/courts/bethnal-green-gardens`
+- **System:** ClubSpark (`clubspark`) — LIVE (migrated from Courtside)
+- **Booking URL:** `https://clubspark.lta.org.uk/BethnalGreenGardens/Booking/BookByDate`
 - **Location:** Malcolm Place, E2 0EU (~2.3 mi)
 - **Courts:** 4 floodlit hard courts
 - **Specs:** Adults £4-6
@@ -99,15 +99,15 @@
 - **Specs:** Near Waterloo
 
 ### 13. St John's Park
-- **System:** Courtside (Tower Hamlets)
-- **Booking URL:** `https://tennistowerhamlets.com/book/courts/st-johns-park`
+- **System:** ClubSpark (`clubspark`) — DISABLED (requires login, migrated from Courtside)
+- **Booking URL:** `https://clubspark.lta.org.uk/StJohnsPark/Booking/BookByDate`
 - **Location:** Plevna Street, Tower Hamlets (~2.8 mi)
 - **Courts:** 2 floodlit hard courts
 - **Specs:** Adults £4 off-peak, £6 peak
 
 ### 14. King Edward Memorial Park
-- **System:** Courtside (Tower Hamlets)
-- **Booking URL:** `https://tennistowerhamlets.com/book/courts/king-edward-memorial-park`
+- **System:** ClubSpark (`clubspark`) — LIVE (migrated from Courtside)
+- **Booking URL:** `https://clubspark.lta.org.uk/KingEdwardMemorialPark/Booking/BookByDate`
 - **Location:** Glamis Road, E1W 3TD (~2.5 mi)
 - **Courts:** 4 porous macadam
 - **Specs:** Adults £4-6
@@ -187,9 +187,10 @@
 - Court 6 (Highbury Fields)
 - Same adapter as Islington, just different venue slug
 
-**Phase 4 — Build Courtside adapter (covers 3 courts):**
-- Courts 8, 13, 14
-- tennistowerhamlets.com uses Courtside booking platform
+**Phase 4 — Courtside courts (DONE — migrated to ClubSpark):**
+- tennistowerhamlets.com is defunct (returns 404). All 3 courts moved to ClubSpark.
+- 2 courts live: Bethnal Green Gardens, King Edward Memorial Park
+- 1 court disabled (requires login): St John's Park
 
 **Phase 5 — Build Camden Active adapter (covers 3 courts):**
 - Courts 21-23 (Lincoln's Inn Fields, Waterlow Park, Kilburn Grange Park)

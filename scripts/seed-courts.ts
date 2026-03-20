@@ -213,6 +213,49 @@ async function main() {
         courts: 8, floodlit: true,
       },
     },
+    // Tower Hamlets courts (migrated from Courtside to ClubSpark)
+    {
+      name: "Bethnal Green Gardens Tennis",
+      slug: "bethnal-green-gardens",
+      bookingSystem: "clubspark",
+      bookingUrl: "https://clubspark.lta.org.uk/BethnalGreenGardens/Booking/BookByDate",
+      location: "Malcolm Place, London E2 0EU",
+      metadata: {
+        venue: "BethnalGreenGardens",
+        deepLink: "https://clubspark.lta.org.uk/BethnalGreenGardens/Booking/BookByDate",
+        courts: 4, surface: "Hard", floodlit: true,
+        pricing: { adult: "£4-6" },
+      },
+    },
+    {
+      name: "King Edward Memorial Park Tennis",
+      slug: "king-edward-memorial",
+      bookingSystem: "clubspark",
+      bookingUrl: "https://clubspark.lta.org.uk/KingEdwardMemorialPark/Booking/BookByDate",
+      location: "Glamis Road, London E1W 3TD",
+      metadata: {
+        venue: "KingEdwardMemorialPark",
+        deepLink: "https://clubspark.lta.org.uk/KingEdwardMemorialPark/Booking/BookByDate",
+        courts: 4, surface: "Porous Macadam",
+        pricing: { adult: "£4-6" },
+      },
+    },
+    // Disabled: requires ClubSpark login
+    {
+      name: "St John's Park Tennis",
+      slug: "st-johns-park",
+      bookingSystem: "clubspark",
+      bookingUrl: "https://clubspark.lta.org.uk/StJohnsPark/Booking/BookByDate",
+      location: "Plevna Street, Tower Hamlets, London",
+      enabled: false,
+      metadata: {
+        venue: "StJohnsPark",
+        deepLink: "https://clubspark.lta.org.uk/StJohnsPark/Booking/BookByDate",
+        courts: 2, floodlit: true,
+        pricing: { offPeak: "£4", peak: "£6" },
+        note: "Requires ClubSpark login — cannot scrape anonymously",
+      },
+    },
     // Camden Active courts
     {
       name: "Lincoln's Inn Fields Tennis",
