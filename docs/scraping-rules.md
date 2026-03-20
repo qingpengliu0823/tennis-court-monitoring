@@ -4,6 +4,12 @@ This document specifies the scraping rules, DOM selectors, and data extraction l
 
 Last verified: 2026-03-20
 
+| Adapter | Status | Courts |
+|---------|--------|--------|
+| `microsoft_bookings` | Working | Garden Halls |
+| `better` | Working | Islington Tennis Centre |
+| `clubspark` | Working | 9 enabled, 4 disabled (login required) |
+
 ---
 
 ## localtenniscourts.com (Adapter: `localtenniscourts`)
@@ -173,6 +179,108 @@ The scraper doesn't use these — it constructs URLs directly for 7 days forward
 2. **React SPA load time**: 2s hardcoded wait per page. May need tuning.
 3. **7 sequential page loads**: One per day = slow (~30s total). Could be parallelized but risks rate limiting.
 4. **Price in text**: If Better changes pricing format (e.g. "From £14.85"), the regex may partially match.
+
+---
+
+## ClubSpark/LTA Courts (Adapter: `clubspark`)
+
+**Covers:** Finsbury Park, Clissold Park, Hackney Downs, London Fields, Geraldine Mary Harmsworth, Spring Hill, Elthorne, Southwark Park, Clapham Common (9 enabled). Paddington Rec, Rosemary Gardens, Archbishop's Park, Kennington Park disabled (require login).
+
+**Status:** Fully working. Scans 7 days forward, extracts all time slots with availability, pricing, and court labels.
+
+### Source URL
+
+Booking page: `https://clubspark.lta.org.uk/{venue}/Booking/BookByDate`
+
+Per-day navigation via hash fragment: `#?date=YYYY-MM-DD&role=guest`
+
+### Page structure (verified 2026-03-20)
+
+Client-rendered — JavaScript reads hash fragment and loads the booking grid. Requires Playwright.
+
+**Booking grid:**
+```html
+<div class="carousel">
+  <ul>
+    <li class="visible">
+      <div class="resource-wrap">
+        <div class="resource" data-resource-name="Court 1" data-resource-id="...">
+          <div class="resource-header">
+            <h3>Court 1</h3>
+            <div class="resource-info" title="Court 1 - Full, Outdoor, Incandescent Lighting, Hard">
+              <span>Full, Outdoor, Incandescent Lighting, Hard</span>
+            </div>
+          </div>
+          <div class="sessions-container">
+            <!-- .resource-session elements here -->
+          </div>
+        </div>
+      </div>
+    </li>
+  </ul>
+</div>
+```
+
+**Time slots (`.resource-session`):**
+```html
+<div class="resource-session"
+     data-availability="true"
+     data-start-time="540"       <!-- minutes from midnight (540 = 09:00) -->
+     data-end-time="600"         <!-- 600 = 10:00 -->
+     data-session-cost="7"       <!-- price in £ -->
+     data-session-member-cost="0"
+     data-capacity="1"
+     data-resource-interval="60">
+  <div class="resource-interval">
+    <div class="unavailable">
+      <span>Unavailable</span>    <!-- shown to anonymous users even when available -->
+    </div>
+  </div>
+</div>
+```
+
+- `data-availability="true"` = available for booking, `"false"` = booked
+- `data-start-time` / `data-end-time`: minutes from midnight (e.g. 420 = 07:00, 780 = 13:00)
+- `data-session-cost`: price in £ (integer or decimal)
+- Multi-hour slots: some slots span 2+ hours (e.g. start=1200, end=1320 = 20:00-22:00)
+
+**Booked slots** show `.full-session` with `.session-name` "Booked".
+**Available slots** show `.unavailable` with text "Unavailable" (misleading — this is for anonymous users who can't book inline, but `data-availability="true"` is the source of truth).
+
+### Data extraction
+
+The adapter uses a string-based `page.evaluate()` (not a function callback) to avoid tsx/esbuild `__name` serialization issues. It reads all `.resource-session` elements and extracts:
+- Court name from ancestor `.resource[data-resource-name]`
+- Court info from `.resource-info[title]`
+- Availability, times, and pricing from data attributes
+
+### Venue-specific notes
+
+- **Some venues require ClubSpark login** (redirect to auth.clubspark.uk). These are disabled in the database. Affected: Paddington Recreation Ground, Rosemary Gardens, Tennis In Lambeth (Archbishop's Park + Kennington Park).
+- **Millfields Park** — ClubSpark URL returns 404. Removed from monitoring.
+- **Archbishop's Park and Kennington Park** share the same ClubSpark org (Tennis In Lambeth).
+
+### Metadata
+
+```json
+{
+  "venue": "FinsburyPark",
+  "deepLink": "https://clubspark.lta.org.uk/FinsburyPark/Booking/BookByDate",
+  "courts": 8,
+  "surface": "Hard",
+  "floodlit": true,
+  "pricing": { "offPeak": "£4", "peak": "£7" }
+}
+```
+
+### Known fragile points
+
+1. **Hash fragment navigation**: Date is set via `#?date=YYYY-MM-DD&role=guest`. If ClubSpark changes to query params or a different SPA routing scheme, navigation breaks.
+2. **Data attributes**: All extraction relies on `data-availability`, `data-start-time`, `data-end-time`, `data-session-cost`. If ClubSpark renames these attributes, the adapter breaks silently (returns 0 slots, no error).
+3. **Minutes-from-midnight encoding**: Start/end times are in minutes (e.g. 540 = 09:00). If the format changes to HH:MM strings, the time conversion logic breaks.
+4. **2s hardcoded wait**: May fail on slow connections. The adapter also waits for `.resource-session` selector with a 10s timeout as a fallback.
+5. **Login-required venues**: No authentication support. Venues that require login return 0 slots without an error (the page redirects to sign-in, so `.resource-session` selector times out silently).
+6. **7 sequential page loads**: One per day = ~20s total. Could be parallelized but risks rate limiting from ClubSpark.
 
 ---
 
