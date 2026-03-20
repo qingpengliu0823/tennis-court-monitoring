@@ -28,7 +28,7 @@ export default async function EditMonitorPage({
             courts={courts.map((c) => ({
               id: c.id,
               name: c.name,
-              serviceTypes: ((c.metadata as Record<string, unknown>)?.serviceTypes as Array<{ name: string; price: string }>) ?? null,
+              serviceTypes: ((c.metadata as Record<string, unknown>)?.serviceTypes as Array<{ name: string; label?: string; price: string }>) ?? null,
             }))}
             defaults={{
               id: monitor.id,

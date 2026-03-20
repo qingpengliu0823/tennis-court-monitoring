@@ -7,7 +7,7 @@ export async function getMonitors() {
   return prisma.monitor.findMany({
     orderBy: { createdAt: "desc" },
     include: {
-      court: { select: { name: true, slug: true } },
+      court: { select: { name: true, slug: true, metadata: true } },
       _count: { select: { alerts: true } },
     },
   });

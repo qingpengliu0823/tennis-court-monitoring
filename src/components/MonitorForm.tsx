@@ -12,7 +12,7 @@ const DAYS = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
 interface CourtOption {
   id: string;
   name: string;
-  serviceTypes: Array<{ name: string; price: string }> | null;
+  serviceTypes: Array<{ name: string; label?: string; price: string }> | null;
 }
 
 interface MonitorDefaults {
@@ -124,7 +124,7 @@ export function MonitorForm({
                     defaultChecked={defaults?.serviceType === st.name}
                     className="accent-primary"
                   />
-                  <span>{st.name}</span>
+                  <span>{st.label || st.name}</span>
                 </div>
                 <span className="text-muted-foreground">{st.price}</span>
               </label>

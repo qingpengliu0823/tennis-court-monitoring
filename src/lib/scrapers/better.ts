@@ -31,7 +31,8 @@ const betterAdapter: CourtAdapter = {
 
   async scrape(courtId: string, bookingUrl: string, metadata?: Record<string, unknown>): Promise<ScrapeResult> {
     const start = Date.now();
-    const activity = (metadata?.activity as string) || "tennis-court-outdoor";
+    // serviceType (from monitor) overrides default activity (from court metadata)
+    const activity = (metadata?.serviceType as string) || (metadata?.activity as string) || "tennis-court-outdoor";
 
     // Extract venue slug from bookingUrl: .../location/{venue}/...
     const venueMatch = bookingUrl.match(/location\/([^/]+)/);

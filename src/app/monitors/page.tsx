@@ -58,9 +58,11 @@ export default async function MonitorsPage() {
               </CardHeader>
               <CardContent>
                 <div className="flex flex-wrap gap-4 text-xs text-muted-foreground">
-                  {monitor.serviceType && (
-                    <span>As: {monitor.serviceType}</span>
-                  )}
+                  {monitor.serviceType && (() => {
+                    const types = (monitor.court.metadata as Record<string, unknown>)?.serviceTypes as Array<{ name: string; label?: string }> | undefined;
+                    const label = types?.find((t) => t.name === monitor.serviceType)?.label || monitor.serviceType;
+                    return <span>Type: {label}</span>;
+                  })()}
                   {monitor.timeFrom && monitor.timeTo && (
                     <span>
                       Time: {monitor.timeFrom}–{monitor.timeTo}

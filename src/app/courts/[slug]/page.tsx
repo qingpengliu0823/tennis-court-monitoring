@@ -35,7 +35,7 @@ export default async function CourtDetailPage({
 
       {(() => {
         const meta = court.metadata as Record<string, unknown> | null;
-        const serviceTypes = meta?.serviceTypes as Array<{ name: string; duration: string; price: string }> | undefined;
+        const serviceTypes = meta?.serviceTypes as Array<{ name: string; label?: string; duration?: string; price: string }> | undefined;
         if (!serviceTypes) return null;
         return (
           <Card>
@@ -46,7 +46,7 @@ export default async function CourtDetailPage({
               <div className="grid gap-2 sm:grid-cols-2">
                 {serviceTypes.map((st) => (
                   <div key={st.name} className="flex items-center justify-between rounded-md border px-3 py-2 text-sm">
-                    <span className="font-medium">{st.name}</span>
+                    <span className="font-medium">{st.label || st.name}</span>
                     <span className="text-muted-foreground">{st.price}</span>
                   </div>
                 ))}
