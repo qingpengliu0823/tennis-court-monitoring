@@ -128,3 +128,26 @@
     @apply font-sans;
   }
 }
+
+/* Break out of max-w-5xl container for full-width layouts */
+.courts-breakout {
+  margin-left: calc(-50vw + 50%);
+  margin-right: calc(-50vw + 50%);
+  width: 100vw;
+}
+
+/* Leaflet overrides — prevent Tailwind preflight from breaking controls */
+.leaflet-container {
+  font-family: inherit;
+}
+.leaflet-popup-content-wrapper {
+  border-radius: 8px;
+}
+.leaflet-popup-content {
+  margin: 10px 14px;
+}
+.leaflet-control-zoom a {
+  display: flex !important;
+  align-items: center;
+  justify-content: center;
+}
