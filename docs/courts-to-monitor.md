@@ -1,6 +1,6 @@
-# Tennis Courts to Monitor — London (near UCL Bloomsbury)
+# Tennis Courts to Monitor — London
 
-23 courts selected for monitoring feasibility, ordered by distance from UCL (WC1E).
+66 courts selected for monitoring feasibility.
 
 ## Booking Systems
 
@@ -8,9 +8,10 @@
 |--------|---------|--------|
 | Microsoft Bookings | `microsoft_bookings` | Working |
 | Better/GLL | `better` | Working |
-| ClubSpark/LTA | `clubspark` | Working (9 enabled, 4 need login) |
+| ClubSpark/LTA | `clubspark` | Working (49 enabled, 4 need login) |
 | Courtside (Tower Hamlets) | `clubspark` | Migrated to ClubSpark (2 enabled, 1 needs login) |
 | Camden Active | `camden_active` | Working (3 venues, 12 courts) |
+| Flow.onl (Royal Parks) | `flow_onl` | Working (3 venues) |
 
 ## Courts
 
@@ -195,9 +196,316 @@
 - 3 venues live: Lincoln's Inn Fields (3 courts), Waterlow Park (6 courts), Kilburn Grange Park (3 courts)
 - Per-court booking pages at `camdenactive.camden.gov.uk/courses/detail/{id}/{slug}/`
 
-## Notes
+**Phase 6 — West London ClubSpark courts (20 venues):**
+- Kensington & Chelsea: Holland Park, Avondale Park, Kensington Memorial Park
+- Hammersmith & Fulham: Hurlingham Park, Eel Brook Common, Linford Christie Stadium, Brook Green
+- Ealing: Acton Park, Gunnersbury Park, North Acton Playing Fields, Southall Park, Perivale Park
+- Richmond: Palewell Common, Old Deer Park, Sheen Common, Carlisle Park, Moor Mead
+- Wandsworth: Battersea Park, Wimbledon Park
+- Brent: Queen's Park
 
-- **Regent's Park** excluded — uses Royal Parks Flow.onl proprietary system, technically complex
+**Phase 7 — Hampstead Heath, Greenwich, Southwark & Lambeth courts (20 venues):**
+- Hampstead Heath / NW: Parliament Hill Fields, Golders Hill Park, Gladstone Park, Ravenscourt Park
+- Greenwich: Blackheath, Maryon Park, Plumstead Common, Kidbrooke Green, Bostall Gardens, Altash Gardens
+- Southwark: Burgess Park, Dulwich Park, Belair Park, Tanner Street Park, Brunswick Park
+- Lambeth: Ruskin Park, Vauxhall Park, Hillside Gardens Park
+- Other: West Ham Park, Honor Oak Recreation Ground
+
+## West London Courts
+
+### 24. Holland Park
+- **System:** ClubSpark (`clubspark`) — LIVE
+- **Booking URL:** `https://clubspark.lta.org.uk/hollandpark2/Booking/BookByDate`
+- **Location:** Holland Park, W8 6LU
+- **Courts:** 6 floodlit tarmac
+- **Specs:** Adult £10.20/hr peak, £6.65 off-peak, £14.30 floodlit
+
+### 25. Avondale Park
+- **System:** ClubSpark (`clubspark`) — LIVE
+- **Booking URL:** `https://clubspark.lta.org.uk/AvondalePark/Booking/BookByDate`
+- **Location:** Avondale Park, W11 4PQ
+- **Courts:** 3 artificial turf
+- **Specs:** K&C pricing
+
+### 26. Kensington Memorial Park
+- **System:** ClubSpark (`clubspark`) — LIVE
+- **Booking URL:** `https://clubspark.lta.org.uk/KensingtonMemorialPark/Booking/BookByDate`
+- **Location:** Kensington Memorial Park, W10 6LH
+- **Courts:** 3 tarmac
+- **Specs:** £10.20/hr peak, £6.65 off-peak
+
+### 27. Hurlingham Park
+- **System:** ClubSpark (`clubspark`) — LIVE
+- **Booking URL:** `https://clubspark.lta.org.uk/HurlinghamPark/Booking/BookByDate`
+- **Location:** Hurlingham Park, SW6
+- **Courts:** 3 synthetic grass
+- **Specs:** 7-9am free play daily
+
+### 28. Eel Brook Common
+- **System:** ClubSpark (`clubspark`) — LIVE
+- **Booking URL:** `https://clubspark.lta.org.uk/eelbrookcommon/Booking/BookByDate`
+- **Location:** Eel Brook Common, SW6 4QD
+- **Courts:** 2
+- **Specs:** PIN gate access on booking
+
+### 29. Linford Christie Stadium
+- **System:** ClubSpark (`clubspark`) — LIVE
+- **Booking URL:** `https://clubspark.lta.org.uk/LinfordChristieStadium/Booking/BookByDate`
+- **Location:** Linford Christie Stadium, W12 0DF
+- **Courts:** 3 floodlit tarmac
+- **Specs:** £11/hr
+
+### 30. Brook Green
+- **System:** ClubSpark (`clubspark`) — LIVE
+- **Booking URL:** `https://clubspark.lta.org.uk/brookgreentennisclub/Booking/BookByDate`
+- **Location:** Brook Green, W14
+- **Specs:** Free membership required to book
+
+### 31. Acton Park
+- **System:** ClubSpark (`clubspark`) — LIVE
+- **Booking URL:** `https://clubspark.lta.org.uk/ActonPark2/Booking/BookByDate`
+- **Location:** Acton Park, W3 7JX
+- **Courts:** 2 tarmac
+- **Specs:** Free (booking required)
+
+### 32. Gunnersbury Park Sports Hub
+- **System:** ClubSpark (`clubspark`) — LIVE
+- **Booking URL:** `https://clubspark.lta.org.uk/gunnersburypark/Booking/BookByDate`
+- **Location:** Gunnersbury Park, W3 8LQ
+- **Specs:** £8.50/hr day, £10.60 floodlit
+
+### 33. North Acton Playing Fields
+- **System:** ClubSpark (`clubspark`) — LIVE
+- **Booking URL:** `https://clubspark.lta.org.uk/NorthActonPlayingFieldsTennisClub/Booking/BookByDate`
+- **Location:** North Acton Playing Fields, W3 0JF
+- **Courts:** 5
+- **Specs:** £8/hr
+
+### 34. Southall Park
+- **System:** ClubSpark (`clubspark`) — LIVE
+- **Booking URL:** `https://clubspark.lta.org.uk/SouthallPark2/Booking/BookByDate`
+- **Location:** Southall Park, UB1 3BT
+- **Specs:** Free (booking required)
+
+### 35. Perivale Park
+- **System:** ClubSpark (`clubspark`) — LIVE
+- **Booking URL:** `https://clubspark.lta.org.uk/PerivalePark/Booking/BookByDate`
+- **Location:** Perivale Park, UB6 8TJ
+- **Specs:** Free (booking required). Venue slug unverified.
+
+### 36. Palewell Common
+- **System:** ClubSpark (`clubspark`) — LIVE
+- **Booking URL:** `https://clubspark.lta.org.uk/PalewellCommon/Booking/BookByDate`
+- **Location:** Palewell Common, SW14 8RF
+- **Courts:** 4
+- **Specs:** £11/hr pay-and-play, PIN gate access
+
+### 37. Old Deer Park
+- **System:** ClubSpark (`clubspark`) — LIVE
+- **Booking URL:** `https://clubspark.lta.org.uk/OldDeerPark/Booking/BookByDate`
+- **Location:** Old Deer Park, Richmond TW9 2SF
+- **Specs:** £11/hr pay-and-play
+
+### 38. Sheen Common
+- **System:** ClubSpark (`clubspark`) — LIVE
+- **Booking URL:** `https://clubspark.lta.org.uk/SheenCommon/Booking/BookByDate`
+- **Location:** Sheen Common, SW14 7ER
+- **Courts:** 4
+- **Specs:** £11/hr pay-and-play
+
+### 39. Carlisle Park
+- **System:** ClubSpark (`clubspark`) — LIVE
+- **Booking URL:** `https://clubspark.lta.org.uk/CarlisleParkRichmond/Booking/BookByDate`
+- **Location:** Carlisle Park, Hampton Hill TW12 2LY
+- **Courts:** 7
+- **Specs:** £11/hr pay-and-play
+
+### 40. Moor Mead
+- **System:** ClubSpark (`clubspark`) — LIVE
+- **Booking URL:** `https://clubspark.lta.org.uk/MoorMeadRecreationGround/Booking/BookByDate`
+- **Location:** Moor Mead Recreation Ground, Twickenham TW1 1JS
+- **Courts:** 4
+- **Specs:** £11/hr pay-and-play
+
+### 41. Battersea Park
+- **System:** ClubSpark (`clubspark`) — LIVE
+- **Booking URL:** `https://clubspark.lta.org.uk/BatterseaParkTennisCourts/Booking/BookByDate`
+- **Location:** Battersea Park, SW11 4NJ
+- **Courts:** 16 floodlit (13 tarmac + 3 astro)
+- **Specs:** Priority booking membership available
+
+### 42. Wimbledon Park
+- **System:** ClubSpark (`clubspark`) — LIVE
+- **Booking URL:** `https://clubspark.lta.org.uk/WimbledonPark/Booking/BookByDate`
+- **Location:** Wimbledon Park, SW19
+- **Specs:** £10.70 off-peak, £13.90 peak/weekends
+
+### 43. Queen's Park
+- **System:** ClubSpark (`clubspark`) — LIVE
+- **Booking URL:** `https://clubspark.lta.org.uk/QueensParkTennisCourts/Booking/BookByDate`
+- **Location:** Queen's Park, NW6
+- **Courts:** 6
+- **Specs:** £11.10/hr, concession £6.70
+
+## Hampstead Heath / NW London Courts
+
+### 44. Parliament Hill Fields
+- **System:** ClubSpark (`clubspark`) — LIVE
+- **Booking URL:** `https://clubspark.lta.org.uk/ParliamentHillFieldsTennisCourts/Booking/BookByDate`
+- **Location:** Parliament Hill Fields, Hampstead Heath, NW5
+- **Courts:** 10 hard
+- **Specs:** £11.10/hr, concession £6.70
+
+### 45. Golders Hill Park
+- **System:** ClubSpark (`clubspark`) — LIVE
+- **Booking URL:** `https://clubspark.lta.org.uk/GoldersHillPark/Booking/BookByDate`
+- **Location:** Golders Hill Park, Hampstead Heath, NW11
+- **Specs:** £11.10/hr, concession £6.70
+
+### 46. Gladstone Park
+- **System:** ClubSpark (`clubspark`) — LIVE
+- **Booking URL:** `https://clubspark.lta.org.uk/GladstoneParkTennis/Booking/BookByDate`
+- **Location:** Gladstone Park, Dollis Hill, NW2
+- **Courts:** 8 macadam + 3 mini
+- **Specs:** Club pass available for unlimited free bookings
+
+### 47. Ravenscourt Park
+- **System:** ClubSpark (`clubspark`) — LIVE
+- **Booking URL:** `https://clubspark.lta.org.uk/RavenscourtPark/Booking/BookByDate`
+- **Location:** Ravenscourt Park, W6
+- **Courts:** 7 tarmac (2 blocks)
+- **Specs:** PIN gate access
+
+## Greenwich Courts
+
+### 48. Blackheath (Chesterfield Walk)
+- **System:** ClubSpark (`clubspark`) — LIVE
+- **Booking URL:** `https://clubspark.lta.org.uk/BlackheathPark/Booking/BookByDate`
+- **Location:** Chesterfield Walk, Blackheath, SE10 8QX
+- **Courts:** 3 hard (refurbished 2024)
+- **Specs:** Adult £6.30/hr, junior £4.20/hr
+
+### 49. Maryon Park
+- **System:** ClubSpark (`clubspark`) — LIVE
+- **Booking URL:** `https://clubspark.lta.org.uk/MaryonPark/Booking/BookByDate`
+- **Location:** Maryon Park, Charlton, SE7
+- **Specs:** £3/hr
+
+### 50. Plumstead Common
+- **System:** ClubSpark (`clubspark`) — LIVE
+- **Booking URL:** `https://clubspark.lta.org.uk/PlumsteadCommon/Booking/BookByDate`
+- **Location:** Plumstead Common, SE18
+- **Specs:** £3/hr
+
+### 51. Kidbrooke Green
+- **System:** ClubSpark (`clubspark`) — LIVE
+- **Booking URL:** `https://clubspark.lta.org.uk/KidbrookeGreen/Booking/BookByDate`
+- **Location:** Kidbrooke Green, SE9
+- **Specs:** £3/hr
+
+### 52. Bostall Gardens
+- **System:** ClubSpark (`clubspark`) — LIVE
+- **Booking URL:** `https://clubspark.lta.org.uk/BostallGardens/Booking/BookByDate`
+- **Location:** Bostall Gardens, SE2
+- **Specs:** £3/hr
+
+### 53. Altash Gardens
+- **System:** ClubSpark (`clubspark`) — LIVE
+- **Booking URL:** `https://clubspark.lta.org.uk/AltashGardens/Booking/BookByDate`
+- **Location:** Altash Gardens, SE9 3AL
+- **Specs:** £3/hr
+
+## Southwark Courts
+
+### 54. Burgess Park
+- **System:** ClubSpark (`clubspark`) — LIVE
+- **Booking URL:** `https://clubspark.lta.org.uk/BurgessParkSouthwark/Booking/BookByDate`
+- **Location:** Burgess Park, SE5 7LA
+- **Courts:** 7 (6 floodlit)
+- **Specs:** Peak £9.40/hr, off-peak £6.80/hr
+
+### 55. Dulwich Park
+- **System:** ClubSpark (`clubspark`) — LIVE
+- **Booking URL:** `https://clubspark.lta.org.uk/DulwichPark/Booking/BookByDate`
+- **Location:** Dulwich Park, SE21 7EB
+- **Courts:** 4
+- **Specs:** Peak £9.40/hr, off-peak £6.80/hr
+
+### 56. Belair Park
+- **System:** ClubSpark (`clubspark`) — LIVE
+- **Booking URL:** `https://clubspark.lta.org.uk/BelairPark/Booking/BookByDate`
+- **Location:** Belair Park, SE21 7EX
+- **Specs:** Peak £9.40/hr, off-peak £6.80/hr
+
+### 57. Tanner Street Park
+- **System:** ClubSpark (`clubspark`) — LIVE
+- **Booking URL:** `https://clubspark.lta.org.uk/TannerStPark/Booking/BookByDate`
+- **Location:** Tanner Street Park, Bermondsey, SE1 3LL
+- **Specs:** Peak £9.40/hr, off-peak £6.80/hr
+
+### 58. Brunswick Park
+- **System:** ClubSpark (`clubspark`) — LIVE
+- **Booking URL:** `https://clubspark.lta.org.uk/BrunswickParkSouthwark/Booking/BookByDate`
+- **Location:** Brunswick Park, SE5 7RH
+- **Specs:** Peak £9.40/hr, off-peak £6.80/hr
+
+## Lambeth Courts
+
+### 59. Ruskin Park
+- **System:** ClubSpark (`clubspark`) — LIVE
+- **Booking URL:** `https://clubspark.lta.org.uk/ruskinpark/Booking/BookByDate`
+- **Location:** Ruskin Park, Denmark Hill, SE5 8EL
+
+### 60. Vauxhall Park
+- **System:** ClubSpark (`clubspark`) — LIVE
+- **Booking URL:** `https://clubspark.lta.org.uk/vauxhallpark/Booking/BookByDate`
+- **Location:** Vauxhall Park, SW8 1UD
+- **Courts:** 2
+
+### 61. Hillside Gardens Park
+- **System:** ClubSpark (`clubspark`) — LIVE
+- **Booking URL:** `https://clubspark.lta.org.uk/HillsideGardensPark/Booking/BookByDate`
+- **Location:** Hillside Gardens Park, SW2 3HL
+- **Courts:** 4
+
+## Other Courts
+
+### 62. West Ham Park
+- **System:** ClubSpark (`clubspark`) — LIVE
+- **Booking URL:** `https://clubspark.lta.org.uk/westhampark/Booking/BookByDate`
+- **Location:** West Ham Park, E15
+- **Courts:** 6 hard
+- **Specs:** £7.60/hr, concession £4.60/hr
+
+### 63. Honor Oak Recreation Ground
+- **System:** ClubSpark (`clubspark`) — LIVE
+- **Booking URL:** `https://clubspark.lta.org.uk/HonorOakRecreationGround/Booking/BookByDate`
+- **Location:** Honor Oak Recreation Ground, SE23 3LB
+- **Specs:** Peak £9.40/hr, off-peak £6.80/hr
+
+## Royal Parks Courts (Flow.onl)
+
+### 64. Hyde Park
+- **System:** Flow.onl (`flow_onl`) — LIVE
+- **Booking URL:** `https://sportsandleisureroyalparks.bookings.flow.onl/location/hyde-park-courts/tennis`
+- **Location:** Hyde Park, W2 2UH
+- **Courts:** 6 floodlit
+- **Specs:** Managed by Will to Win. Book up to 7 days in advance, new slots at 7am daily.
+
+### 65. Regent's Park
+- **System:** Flow.onl (`flow_onl`) — LIVE
+- **Booking URL:** `https://sportsandleisureroyalparks.bookings.flow.onl/location/the-regents-park-courts/tennis`
+- **Location:** The Regent's Park, NW1 4NR
+- **Courts:** 12 (10 floodlit)
+- **Specs:** Managed by Will to Win. Also has padel court.
+
+### 66. Greenwich Park
+- **System:** Flow.onl (`flow_onl`) — LIVE
+- **Booking URL:** `https://sportsandleisureroyalparks.bookings.flow.onl/location/greenwich-park-courts/tennis`
+- **Location:** Greenwich Park, SE10 8QY
+- **Courts:** 6
+
+## Notes
 - **Tufnell Park** excluded — Better venue but booking URL unverified
 - **Joe White Gardens** excluded — only 1 court, low priority
 - **Archbishop's Park and Kennington Park** share the same ClubSpark org (Tennis in Lambeth) — requires login, disabled

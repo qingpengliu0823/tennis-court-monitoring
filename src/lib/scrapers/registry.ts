@@ -4,6 +4,7 @@ import { microsoftBookingsAdapter } from "./microsoft-bookings";
 import { betterAdapter } from "./better";
 import { clubsparkAdapter } from "./clubspark";
 import { camdenActiveAdapter } from "./camden-active";
+import { flowOnlAdapter } from "./flow-onl";
 
 const adapters: Record<string, CourtAdapter> = {
   localtenniscourts: localTennisCourtsAdapter,
@@ -11,6 +12,7 @@ const adapters: Record<string, CourtAdapter> = {
   better: betterAdapter,
   clubspark: clubsparkAdapter,
   camden_active: camdenActiveAdapter,
+  flow_onl: flowOnlAdapter,
 };
 
 export function getAdapter(bookingSystem: string): CourtAdapter | null {
