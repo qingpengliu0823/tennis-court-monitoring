@@ -1,0 +1,106 @@
+generator client {
+  provider = "prisma-client"
+  output   = "../src/generated/prisma"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+model Court {
+  id            String         @id @default(cuid())
+  name          String
+  slug          String         @unique
+  bookingSystem String         @map("booking_system")
+  bookingUrl    String         @map("booking_url")
+  venueId       String?        @map("venue_id")
+  location      String?
+  metadata      Json?
+  enabled       Boolean        @default(true)
+  createdAt     DateTime       @default(now()) @map("created_at")
+  updatedAt     DateTime       @updatedAt @map("updated_at")
+
+  snapshots SlotSnapshot[]
+  monitors  Monitor[]
+  logs      ScrapeLog[]
+
+  @@map("courts")
+}
+
+model SlotSnapshot {
+  id          String   @id @default(cuid())
+  courtId     String   @map("court_id")
+  scrapedAt   DateTime @default(now()) @map("scraped_at")
+  date        String   // YYYY-MM-DD
+  startTime   String   @map("start_time") // HH:MM
+  endTime     String   @map("end_time")   // HH:MM
+  available   Boolean  @default(true)
+  courtLabel  String?  @map("court_label")
+  totalCourts Int?     @map("total_courts")
+  rawData     Json?    @map("raw_data")
+
+  court Court @relation(fields: [courtId], references: [id], onDelete: Cascade)
+
+  @@index([courtId, date])
+  @@index([scrapedAt])
+  @@map("slot_snapshots")
+}
+
+model Monitor {
+  id               String    @id @default(cuid())
+  name             String
+  courtId          String    @map("court_id")
+  enabled          Boolean   @default(true)
+  daysOfWeek       Int[]     @map("days_of_week") // 0=Sun, 1=Mon, ..., 6=Sat
+  timeFrom         String?   @map("time_from") // HH:MM
+  timeTo           String?   @map("time_to")   // HH:MM
+  dateFrom         String?   @map("date_from") // YYYY-MM-DD
+  dateTo           String?   @map("date_to")   // YYYY-MM-DD
+  checkIntervalMin Int       @default(30) @map("check_interval_min")
+  lastCheckedAt    DateTime? @map("last_checked_at")
+  notifyChannel    String    @default("telegram") @map("notify_channel")
+  notifyTarget     String?   @map("notify_target")
+  cooldownMin      Int       @default(60) @map("cooldown_min")
+  lastNotifiedAt   DateTime? @map("last_notified_at")
+  createdAt        DateTime  @default(now()) @map("created_at")
+  updatedAt        DateTime  @updatedAt @map("updated_at")
+
+  court  Court   @relation(fields: [courtId], references: [id], onDelete: Cascade)
+  alerts Alert[]
+
+  @@map("monitors")
+}
+
+model Alert {
+  id         String   @id @default(cuid())
+  monitorId  String   @map("monitor_id")
+  slotDate   String   @map("slot_date")
+  slotTime   String   @map("slot_time")
+  courtLabel String?  @map("court_label")
+  message    String
+  sentAt     DateTime @default(now()) @map("sent_at")
+  channel    String   @default("telegram")
+  delivered  Boolean  @default(false)
+
+  monitor Monitor @relation(fields: [monitorId], references: [id], onDelete: Cascade)
+
+  @@index([monitorId])
+  @@index([sentAt])
+  @@map("alerts")
+}
+
+model ScrapeLog {
+  id         String   @id @default(cuid())
+  courtId    String?  @map("court_id")
+  adapter    String
+  status     String   // success, error
+  slotsFound Int      @default(0) @map("slots_found")
+  durationMs Int      @default(0) @map("duration_ms")
+  error      String?
+  createdAt  DateTime @default(now()) @map("created_at")
+
+  court Court? @relation(fields: [courtId], references: [id], onDelete: SetNull)
+
+  @@index([createdAt])
+  @@map("scrape_logs")
+}
