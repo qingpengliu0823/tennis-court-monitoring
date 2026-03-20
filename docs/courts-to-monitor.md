@@ -10,7 +10,7 @@
 | Better/GLL | `better` | Working |
 | ClubSpark/LTA | `clubspark` | Working (9 enabled, 4 need login) |
 | Courtside (Tower Hamlets) | `clubspark` | Migrated to ClubSpark (2 enabled, 1 needs login) |
-| Camden Active | `camden_active` | **Needs adapter** |
+| Camden Active | `camden_active` | Working (3 venues, 12 courts) |
 
 ## Courts
 
@@ -50,11 +50,11 @@
 - **Specs:** Adults off-peak £4, peak £7
 
 ### 6. Highbury Fields
-- **System:** Better
-- **Booking URL:** `https://bookings.better.org.uk/location/highbury-fields/tennis-activities` (needs verification)
+- **System:** ClubSpark (`clubspark`) — DISABLED (requires login)
+- **Booking URL:** `https://clubspark.lta.org.uk/HighburyFieldsLondon/Booking/BookByDate`
 - **Location:** Highbury Fields, N5 (~2 mi)
 - **Courts:** 11 tarmac, floodlit
-- **Specs:** Pay-and-play
+- **Specs:** Pay-and-play. Better URL defunct; now on ClubSpark but requires login.
 
 ### 7. Clissold Park
 - **System:** ClubSpark (`clubspark`) — LIVE
@@ -152,21 +152,21 @@
 - **Specs:** Member/non-member rates
 
 ### 21. Lincoln's Inn Fields
-- **System:** Camden Active
+- **System:** Camden Active (`camden_active`) — LIVE
 - **Booking URL:** `https://camdenactive.camden.gov.uk/sports/lincolnsinnfields/`
 - **Location:** Gate opposite Royal College of Surgeons, WC2A (~0.5 mi)
 - **Courts:** 3 tarmac
 - **Specs:** £13.90/court, seniors/u16 £5.55. Open 8am–dusk. Non-refundable (weather credits available)
 
 ### 22. Waterlow Park
-- **System:** Camden Active
+- **System:** Camden Active (`camden_active`) — LIVE
 - **Booking URL:** `https://camdenactive.camden.gov.uk/sports/waterlow/`
 - **Location:** Swains Lane / Highgate Hill, N6 (~3.5 mi)
 - **Courts:** 6 tarmac
 - **Specs:** £10.45/booking, seniors/u16 £5.55. Open 8am–dusk
 
 ### 23. Kilburn Grange Park
-- **System:** Camden Active
+- **System:** Camden Active (`camden_active`) — LIVE
 - **Booking URL:** `https://camdenactive.camden.gov.uk/sport/kilburngrange/`
 - **Location:** Messina Avenue, NW6 (~3 mi)
 - **Courts:** 3 tarmac
@@ -183,19 +183,17 @@
 - 4 courts disabled (require ClubSpark login): Paddington Rec, Rosemary Gardens, Archbishop's Park, Kennington Park
 - 1 court removed (Millfields Park — URL 404)
 
-**Phase 3 — Build Better adapter for additional venues:**
-- Court 6 (Highbury Fields)
-- Same adapter as Islington, just different venue slug
+**Phase 3 — Highbury Fields (DONE — moved to ClubSpark, disabled):**
+- Better booking URL defunct. Now on ClubSpark as HighburyFieldsLondon but requires login.
 
 **Phase 4 — Courtside courts (DONE — migrated to ClubSpark):**
 - tennistowerhamlets.com is defunct (returns 404). All 3 courts moved to ClubSpark.
 - 2 courts live: Bethnal Green Gardens, King Edward Memorial Park
 - 1 court disabled (requires login): St John's Park
 
-**Phase 5 — Build Camden Active adapter (covers 3 courts):**
-- Courts 21-23 (Lincoln's Inn Fields, Waterlow Park, Kilburn Grange Park)
-- camdenactive.camden.gov.uk uses custom calendar booking per court
-- Each venue has individual court booking pages at `/courses/detail/{id}/{slug}/`
+**Phase 5 — Camden Active adapter (DONE):**
+- 3 venues live: Lincoln's Inn Fields (3 courts), Waterlow Park (6 courts), Kilburn Grange Park (3 courts)
+- Per-court booking pages at `camdenactive.camden.gov.uk/courses/detail/{id}/{slug}/`
 
 ## Notes
 

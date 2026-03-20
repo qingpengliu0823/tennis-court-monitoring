@@ -256,6 +256,21 @@ async function main() {
         note: "Requires ClubSpark login — cannot scrape anonymously",
       },
     },
+    // Disabled: requires ClubSpark login (Better URL defunct)
+    {
+      name: "Highbury Fields Tennis",
+      slug: "highbury-fields",
+      bookingSystem: "clubspark",
+      bookingUrl: "https://clubspark.lta.org.uk/HighburyFieldsLondon/Booking/BookByDate",
+      location: "Highbury Fields, London N5",
+      enabled: false,
+      metadata: {
+        venue: "HighburyFieldsLondon",
+        deepLink: "https://clubspark.lta.org.uk/HighburyFieldsLondon/Booking/BookByDate",
+        courts: 11, surface: "Tarmac", floodlit: true,
+        note: "Requires ClubSpark login — cannot scrape anonymously",
+      },
+    },
     // Camden Active courts
     {
       name: "Lincoln's Inn Fields Tennis",
@@ -286,6 +301,14 @@ async function main() {
         deepLink: "https://camdenactive.camden.gov.uk/sports/waterlow/",
         courts: 6, surface: "Tarmac",
         pricing: { standard: "£10.45", seniors: "£5.55", under16: "£5.55" },
+        courtPages: [
+          { id: 187, slug: "waterlow-park-tennis-court-1" },
+          { id: 188, slug: "waterlow-park-tennis-court-2" },
+          { id: 190, slug: "waterlow-park-tennis-court-3" },
+          { id: 191, slug: "waterlow-park-tennis-court-4" },
+          { id: 192, slug: "waterlow-park-tennis-court-5" },
+          { id: 193, slug: "waterlow-park-tennis-court-6" },
+        ],
       },
     },
     {
@@ -299,6 +322,11 @@ async function main() {
         deepLink: "https://camdenactive.camden.gov.uk/sport/kilburngrange/",
         courts: 3, surface: "Tarmac",
         pricing: { standard: "£10.45", seniors: "£5.55", under16: "£5.55" },
+        courtPages: [
+          { id: 178, slug: "kilburn-grange-tennis-court-1" },
+          { id: 179, slug: "kilburn-grange-tennis-court-2" },
+          { id: 183, slug: "kilburn-grange-tennis-court-3" },
+        ],
       },
     },
   ];

@@ -8,7 +8,8 @@ Last verified: 2026-03-20
 |---------|--------|--------|
 | `microsoft_bookings` | Working | Garden Halls |
 | `better` | Working | Islington Tennis Centre |
-| `clubspark` | Working | 11 enabled, 5 disabled (login required) |
+| `clubspark` | Working | 11 enabled, 6 disabled (login required) |
+| `camden_active` | Working | 3 venues (12 courts total) |
 
 ---
 
@@ -282,6 +283,76 @@ The adapter uses a string-based `page.evaluate()` (not a function callback) to a
 4. **2s hardcoded wait**: May fail on slow connections. The adapter also waits for `.resource-session` selector with a 10s timeout as a fallback.
 5. **Login-required venues**: No authentication support. Venues that require login return 0 slots without an error (the page redirects to sign-in, so `.resource-session` selector times out silently).
 6. **7 sequential page loads**: One per day = ~20s total. Could be parallelized but risks rate limiting from ClubSpark.
+
+---
+
+## Camden Active Courts (Adapter: `camden_active`)
+
+**Covers:** Lincoln's Inn Fields (3 courts), Waterlow Park (6 courts), Kilburn Grange Park (3 courts)
+
+**Status:** Fully working. Shows 7 days of availability per court, 1-hour slots.
+
+### Source URLs
+
+Venue page: `https://camdenactive.camden.gov.uk/sports/{venue}/` (links to individual court pages)
+
+Per-court availability: `https://camdenactive.camden.gov.uk/courses/detail/{id}/{slug}/`
+
+### Page structure (verified 2026-03-20)
+
+ASP.NET WebForms with Telerik scheduler. Server-rendered but needs Playwright for full rendering (5s wait).
+
+**Booking grid:**
+```html
+<div class="row row-timetable timetable">
+  <div class="col">
+    <!-- Time labels + 7 day columns rendered together -->
+    <div class="timetable-day" style="height: auto;">
+      <ul style="height:600px;">
+        <li style="top:0px;height:60px;">
+          <span>Booked</span>          <!-- booked slot -->
+        </li>
+        <li style="top:180px;height:60px;">
+          <a class="facility-book"     <!-- available slot -->
+             href="/courses/book.aspx?fdCourseEventId=192&fdDate=23/03/2026&fdTime=11">
+            Book
+          </a>
+        </li>
+      </ul>
+    </div>
+  </div>
+</div>
+```
+
+- **Time calculation:** `hour = top / 60 + startHour` (startHour from first time label, usually 8)
+- **Available slots:** `<a class="facility-book">` with href containing `fdDate=DD/MM/YYYY&fdTime={hour}`
+- **Booked slots:** `<span>Booked</span>` — date derived from column index (day 0 = today)
+- **Each court = separate page load** — 3 pages for Lincoln's Inn, 6 for Waterlow, 3 for Kilburn
+
+### Metadata
+
+```json
+{
+  "venue": "lincolnsinnfields",
+  "deepLink": "https://camdenactive.camden.gov.uk/sports/lincolnsinnfields/",
+  "courts": 3,
+  "pricing": { "standard": "£13.90", "seniors": "£5.55", "under16": "£5.55" },
+  "courtPages": [
+    { "id": 171, "slug": "lincoln-s-inn-fields-tennis-court-1" },
+    { "id": 176, "slug": "lincoln-s-inn-fields-tennis-court-2" },
+    { "id": 177, "slug": "lincoln-s-inn-fields-tennis-court-3" }
+  ]
+}
+```
+
+### Known fragile points
+
+1. **Per-court page loads**: Lincoln's Inn = 3 pages, Waterlow = 6 pages, Kilburn = 3 = 12 total (~40s per venue). Slow but unavoidable.
+2. **Court page IDs**: Hardcoded in metadata. If Camden Active renumbers courts, the URLs break.
+3. **5s hardcoded wait**: ASP.NET ViewState is large; page needs time to fully render the grid.
+4. **Date from column index**: Booked slots have no date in the DOM — derived by counting columns from today. If the grid doesn't start on today, dates shift.
+5. **Opening hours vary**: Start hour extracted from first time label. Parks close at dusk — grid may show different slot ranges in summer vs winter.
+6. **No "Next Week" navigation**: Only shows current 7-day window. Cannot scrape further ahead.
 
 ---
 
