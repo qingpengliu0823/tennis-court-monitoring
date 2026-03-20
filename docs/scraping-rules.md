@@ -8,79 +8,9 @@ Last verified: 2026-03-20
 
 ## localtenniscourts.com (Adapter: `localtenniscourts`)
 
-**Covers:** Clissold Park, Highbury Fields, London Fields, Finsbury Park, Regent's Park, Hyde Park (~65 London venues total)
+**Status:** No courts currently using this adapter. Kept for reference — can be re-enabled for any of the ~65 London venues on localtenniscourts.com.
 
-**Status:** Extracts aggregate court counts per time/date. Does NOT extract per-venue breakdown.
-
-### Source URL
-
-`https://www.localtenniscourts.com/london`
-
-All 6 localtenniscourts venues share this single URL. The page shows a combined availability grid for all London venues.
-
-### Page structure (verified 2026-03-20)
-
-The page renders two `<table>` elements:
-
-| Table | Contains | Key selector |
-|-------|----------|--------------|
-| 1st `<table>` | Header row only | `<th>` cells: `"Time"`, `"Fri 20"`, `"Sat 21"`, ... |
-| 2nd `<table>` | Data rows in `<tbody>` | 17 rows (06:00–22:00), 9 cells each |
-
-**Header cells** (1st table):
-```
-<thead> > <tr> > <th>Time</th> <th>Fri 20</th> <th>Sat 21</th> ...
-```
-
-**Data rows** (2nd table):
-```html
-<tbody data-slot="table-body">
-  <tr>
-    <td>06:00</td>                         <!-- cell 0: time -->
-    <td>                                    <!-- cells 1-8: day columns -->
-      <div class="flex flex-col items-center">
-        <span class="font-semibold">4</span>       <!-- court count -->
-        <span class="text-xs ...">courts</span>
-      </div>
-    </td>
-    ...
-  </tr>
-</tbody>
-```
-
-- Unavailable slots show `<span class="font-semibold">-</span>`
-- High availability shows `25+` (parsed as integer 25)
-
-### Date parsing
-
-Headers like `"Fri 20"` are converted to `YYYY-MM-DD`:
-- Extract day number from header text
-- Use current month; if resulting date is >14 days in the past, assume next month
-
-### What is NOT extracted
-
-- **Per-venue breakdown**: The table shows aggregate counts across all venues. Individual venue names, booking URLs, and per-venue availability are behind click popovers that we don't interact with.
-- **Pricing**: Not shown in the grid.
-
-### Per-venue deep links (for "Open booking page")
-
-These are stored in `metadata.deepLink` on each Court record, not extracted by the scraper:
-
-| Court | Deep link |
-|-------|-----------|
-| Clissold Park | `https://clubspark.lta.org.uk/ClissoldParkHackney/Booking/BookByDate` |
-| Highbury Fields | `https://clubspark.lta.org.uk/HighburyFieldsLondon` |
-| London Fields | `https://clubspark.lta.org.uk/LondonFieldsPark/Booking/BookByDate` |
-| Finsbury Park | `https://clubspark.lta.org.uk/FinsburyPark/Booking/BookByDate` |
-| Regent's Park | `https://clubspark.lta.org.uk/RegentsPark` |
-| Hyde Park | `https://clubspark.lta.org.uk/HydePark` |
-
-### Known fragile points
-
-1. **Two-table assumption**: If the site restructures to a single table or uses divs, the scraper breaks.
-2. **`.font-semibold` selector**: Used to find the court count number. Will break if the CSS class is renamed.
-3. **Hardcoded 1.5s wait**: May fail on slow connections. Consider `waitForSelector` instead.
-4. **No per-venue data**: A future improvement would be to click each cell to get the popover with individual venue availability and booking URLs.
+See git history (commit `a8401a1`) for full documentation of the two-table DOM structure and per-venue deep links.
 
 ---
 
@@ -173,6 +103,76 @@ If no date cells with "Available" are found (e.g. page auto-jumped and didn't re
 3. **Hardcoded waits** (2s after load, 1s after service click, 1.5s after date click): May fail on slow connections.
 4. **Single month only**: Currently only scrapes the visible month. Does not click "Next month" to scan further ahead.
 5. **English month names**: Hardcoded month name → number mapping. The `Accept-Language: en-GB` header should ensure English, but not guaranteed.
+
+---
+
+## Islington Tennis Centre (Adapter: `better`)
+
+**Covers:** Islington Tennis Centre, Market Road, London N7 9PL
+
+**Status:** Fully working. Scans 7 days forward, extracts all time slots with availability and pricing.
+
+### Source URL
+
+Activities page: `https://bookings.better.org.uk/location/islington-tennis-centre/tennis-activities`
+
+Per-day availability (what the scraper hits): `https://bookings.better.org.uk/location/{venue}/{activity}/{YYYY-MM-DD}/by-time`
+
+### Activities
+
+| Activity slug | Description |
+|---------------|-------------|
+| `tennis-court-outdoor` | Outdoor courts (default, configured in metadata) |
+| `tennis-court-indoor` | Indoor courts |
+| `tennis-sessions` | Group sessions |
+
+Configured via `metadata.activity` on the Court record.
+
+### Page structure (verified 2026-03-20)
+
+React SPA — requires Playwright for JS rendering. The scraper navigates to each date's `/by-time` URL directly (no clicking through a calendar).
+
+**Slot cards:**
+```
+Parent container (walk up from <a> until text has ":00 -" and "min"):
+  "07:00 - 08:00 60min Tennis Court (Floodlit) Multiple £14.85 0 spaces available Book"
+
+  <a href="/location/.../slot/07:00-08:00/921c8fb8">
+    <button><span>Book</span></button>
+  </a>
+```
+
+- Time extracted from `<a>` href: `/slot/(\d{2}:\d{2})-(\d{2}:\d{2})/`
+- Spaces: `innerText` parsed with `/(\d+) spaces? available/`
+- Price: `/£([\d.]+)/`
+- Court type: `/Tennis Court \(([^)]+)\)/`
+
+**Important:** Must use `innerText` (not `textContent`) to parse the card — `textContent` concatenates child elements without spaces, breaking the regex (e.g. `£14.850 spaces` instead of `£14.85 0 spaces`).
+
+**Date navigation:**
+```html
+<a href="/location/.../tennis-court-outdoor/2026-03-21/by-time">Sat21</a>
+```
+
+The scraper doesn't use these — it constructs URLs directly for 7 days forward.
+
+### Metadata
+
+```json
+{
+  "activity": "tennis-court-outdoor",
+  "venue": "islington-tennis-centre",
+  "deepLink": "https://bookings.better.org.uk/location/islington-tennis-centre/tennis-court-outdoor",
+  "activities": ["tennis-court-outdoor", "tennis-court-indoor"]
+}
+```
+
+### Known fragile points
+
+1. **Container walk-up logic**: Finds the card by walking up from `<a>` until text contains `:00 -` and `min`. If the card layout changes, this breaks.
+2. **React SPA load time**: 2s hardcoded wait per page. May need tuning.
+3. **7 sequential page loads**: One per day = slow (~30s total). Could be parallelized but risks rate limiting.
+4. **Price in text**: If Better changes pricing format (e.g. "From £14.85"), the regex may partially match.
 
 ---
 
