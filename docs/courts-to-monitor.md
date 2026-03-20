@@ -1,6 +1,6 @@
 # Tennis Courts to Monitor — London (near UCL Bloomsbury)
 
-20 courts selected for monitoring feasibility, ordered by distance from UCL (WC1E).
+23 courts selected for monitoring feasibility, ordered by distance from UCL (WC1E).
 
 ## Booking Systems
 
@@ -10,6 +10,7 @@
 | Better/GLL | `better` | Working |
 | ClubSpark/LTA | `clubspark` | **Needs adapter** |
 | Courtside (Tower Hamlets) | `courtside` | **Needs adapter** |
+| Camden Active | `camden_active` | **Needs adapter** |
 
 ## Courts
 
@@ -153,6 +154,27 @@
 - **Courts:** 8 (5 floodlit)
 - **Specs:** Member/non-member rates
 
+### 21. Lincoln's Inn Fields
+- **System:** Camden Active
+- **Booking URL:** `https://camdenactive.camden.gov.uk/sports/lincolnsinnfields/`
+- **Location:** Gate opposite Royal College of Surgeons, WC2A (~0.5 mi)
+- **Courts:** 3 tarmac
+- **Specs:** £13.90/court, seniors/u16 £5.55. Open 8am–dusk. Non-refundable (weather credits available)
+
+### 22. Waterlow Park
+- **System:** Camden Active
+- **Booking URL:** `https://camdenactive.camden.gov.uk/sports/waterlow/`
+- **Location:** Swains Lane / Highgate Hill, N6 (~3.5 mi)
+- **Courts:** 6 tarmac
+- **Specs:** £10.45/booking, seniors/u16 £5.55. Open 8am–dusk
+
+### 23. Kilburn Grange Park
+- **System:** Camden Active
+- **Booking URL:** `https://camdenactive.camden.gov.uk/sport/kilburngrange/`
+- **Location:** Messina Avenue, NW6 (~3 mi)
+- **Courts:** 3 tarmac
+- **Specs:** £10.45/session, seniors/u16 £5.55. Open 8am–dusk
+
 ## Implementation Priority
 
 **Phase 1 — Already working:**
@@ -172,9 +194,15 @@
 - Courts 8, 13, 14
 - tennistowerhamlets.com uses Courtside booking platform
 
+**Phase 5 — Build Camden Active adapter (covers 3 courts):**
+- Courts 21-23 (Lincoln's Inn Fields, Waterlow Park, Kilburn Grange Park)
+- camdenactive.camden.gov.uk uses custom calendar booking per court
+- Each venue has individual court booking pages at `/courses/detail/{id}/{slug}/`
+
 ## Notes
 
 - **Regent's Park** excluded — uses Royal Parks Flow.onl proprietary system, technically complex
 - **Tufnell Park** excluded — Better venue but booking URL unverified
 - **Joe White Gardens** excluded — only 1 court, low priority
 - **Archbishop's Park and Kennington Park** share the same ClubSpark org (Tennis in Lambeth) — the booking page shows multiple venues, adapter needs to handle venue selection
+- **Camden Active courts** (Lincoln's Inn Fields, Waterlow Park, Kilburn Grange Park) use Camden Council's own booking system with individual per-court calendar pages at `camdenactive.camden.gov.uk/courses/detail/{id}/{slug}/`
