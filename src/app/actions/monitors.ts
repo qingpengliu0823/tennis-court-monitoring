@@ -4,13 +4,24 @@ import { prisma } from "@/lib/prisma";
 import { revalidatePath } from "next/cache";
 
 export async function getMonitors() {
-  return prisma.monitor.findMany({
+  const monitors = await prisma.monitor.findMany({
     orderBy: { createdAt: "desc" },
     include: {
       court: { select: { name: true, slug: true, metadata: true } },
       _count: { select: { alerts: true } },
+      alerts: {
+        where: { sentAt: { gte: new Date(Date.now() - 24 * 60 * 60 * 1000) } },
+        orderBy: { sentAt: "desc" },
+        take: 5,
+        select: { slotDate: true, slotTime: true, courtLabel: true, sentAt: true },
+      },
     },
   });
+  return monitors.map((m) => ({
+    ...m,
+    recentAlerts: m.alerts,
+    alerts: undefined, // drop raw alerts, keep _count
+  }));
 }
 
 export async function createMonitor(data: {

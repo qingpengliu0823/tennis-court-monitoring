@@ -36,14 +36,24 @@ export default async function DashboardPage() {
           </CardContent>
         </Card>
 
-        <Card>
+        <Card className={stats.alertsToday > 0 ? "border-green-500 bg-green-50 dark:border-green-400 dark:bg-green-950/30" : ""}>
           <CardHeader className="pb-2">
-            <CardTitle className="text-sm font-medium text-muted-foreground">
+            <CardTitle className={`text-sm font-medium ${stats.alertsToday > 0 ? "text-green-700 dark:text-green-300" : "text-muted-foreground"}`}>
               Alerts Today
             </CardTitle>
           </CardHeader>
           <CardContent>
-            <div className="text-3xl font-bold">{stats.alertsToday}</div>
+            <div className="flex items-center gap-2">
+              <span className={`text-3xl font-bold ${stats.alertsToday > 0 ? "text-green-700 dark:text-green-300" : ""}`}>
+                {stats.alertsToday}
+              </span>
+              {stats.alertsToday > 0 && (
+                <span className="relative flex h-3 w-3">
+                  <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-green-400 opacity-75" />
+                  <span className="relative inline-flex h-3 w-3 rounded-full bg-green-500" />
+                </span>
+              )}
+            </div>
           </CardContent>
         </Card>
 
