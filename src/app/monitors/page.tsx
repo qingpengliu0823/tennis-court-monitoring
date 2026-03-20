@@ -80,23 +80,6 @@ export default async function MonitorsPage() {
                   </div>
                 </CardHeader>
                 <CardContent>
-                  {hasAvailability && (
-                    <div className="mb-3 rounded-md bg-green-100 px-3 py-2 text-sm text-green-900 dark:bg-green-900/40 dark:text-green-100">
-                      <p className="font-medium">Available slots found (last 24h):</p>
-                      <ul className="mt-1 space-y-0.5">
-                        {monitor.recentAlerts.map((a, i) => (
-                          <li key={i} className="font-mono text-xs">
-                            {a.slotDate} {a.slotTime}
-                            {a.courtLabel && (
-                              <span className="ml-1 font-sans text-green-700 dark:text-green-300">
-                                ({a.courtLabel})
-                              </span>
-                            )}
-                          </li>
-                        ))}
-                      </ul>
-                    </div>
-                  )}
                   <div className="flex flex-wrap gap-4 text-xs text-muted-foreground">
                     {monitor.serviceType && (() => {
                       const types = (monitor.court.metadata as Record<string, unknown>)?.serviceTypes as Array<{ name: string; label?: string }> | undefined;
@@ -128,7 +111,7 @@ export default async function MonitorsPage() {
                     )}
                   </div>
                   <div className="mt-2">
-                    <RunMonitorButton monitorId={monitor.id} />
+                    <RunMonitorButton monitorId={monitor.id} serviceType={monitor.serviceType} />
                   </div>
                 </CardContent>
               </Card>

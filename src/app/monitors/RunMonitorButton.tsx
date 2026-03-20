@@ -5,12 +5,14 @@ import { useRouter } from "next/navigation";
 import { Button } from "@/components/ui/button";
 import { runMonitorNow } from "../actions/scrape";
 
+type SlotInfo = { date: string; startTime: string; endTime: string; courtLabel?: string };
+
 type ResultState =
-  | { type: "success"; slotsFound: number; newSlots: number; matchingSlots: number; alertsSent: number; durationMs: number }
+  | { type: "success"; slotsFound: number; newSlots: number; matchingSlots: number; alertsSent: number; durationMs: number; availableSlots: SlotInfo[] }
   | { type: "error"; message: string }
   | null;
 
-export function RunMonitorButton({ monitorId }: { monitorId: string }) {
+export function RunMonitorButton({ monitorId, serviceType }: { monitorId: string; serviceType?: string | null }) {
   const router = useRouter();
   const [loading, setLoading] = useState(false);
   const [result, setResult] = useState<ResultState>(null);
@@ -30,6 +32,7 @@ export function RunMonitorButton({ monitorId }: { monitorId: string }) {
           matchingSlots: res.matchingSlots ?? 0,
           alertsSent: res.alertsSent ?? 0,
           durationMs: res.durationMs ?? 0,
+          availableSlots: res.availableSlots ?? [],
         });
         router.refresh();
       }
@@ -48,18 +51,29 @@ export function RunMonitorButton({ monitorId }: { monitorId: string }) {
 
       {result?.type === "success" && result.matchingSlots > 0 && (
         <div className="rounded-md border border-green-500 bg-green-50 px-3 py-2 text-sm text-green-900 dark:bg-green-950/40 dark:text-green-100">
-          <span className="font-semibold">
-            {result.matchingSlots} matching slot{result.matchingSlots > 1 ? "s" : ""} found!
-          </span>
-          <span className="ml-2 text-xs text-green-700 dark:text-green-300">
-            ({result.slotsFound} total, {result.newSlots} new, {result.alertsSent} alert{result.alertsSent !== 1 ? "s" : ""} sent)
-          </span>
+          <div className="flex items-baseline gap-2">
+            <span className="font-semibold">
+              {result.matchingSlots} available slot{result.matchingSlots > 1 ? "s" : ""}
+            </span>
+            <span className="text-xs text-green-700 dark:text-green-300">
+              ({result.newSlots} new, {result.alertsSent} alert{result.alertsSent !== 1 ? "s" : ""} sent, {result.durationMs}ms)
+            </span>
+          </div>
+          <ul className="mt-1 space-y-0.5 text-xs font-mono">
+            {result.availableSlots.map((s, i) => (
+              <li key={i}>
+                {s.date} {s.startTime}–{s.endTime}
+                {s.courtLabel ? ` (${s.courtLabel})` : ""}
+                {serviceType ? ` (${serviceType})` : ""}
+              </li>
+            ))}
+          </ul>
         </div>
       )}
 
       {result?.type === "success" && result.matchingSlots === 0 && (
         <p className="text-xs text-muted-foreground">
-          No matching slots. ({result.slotsFound} total, {result.newSlots} new, {result.durationMs}ms)
+          No available slots match your filters. ({result.slotsFound} scraped, {result.durationMs}ms)
         </p>
       )}
 

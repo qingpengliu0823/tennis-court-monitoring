@@ -46,8 +46,8 @@ export async function runMonitorNow(monitorId: string) {
   const newSlots = await diffSlots(court.id, result.slots);
   await storeSnapshot(court.id, result.slots);
 
-  // Filter slots matching this monitor's criteria
-  const matchingSlots = newSlots.filter((slot) => {
+  // Filter function for monitor criteria
+  const matchesMonitor = (slot: { date: string; startTime: string }) => {
     if (monitor.daysOfWeek.length > 0) {
       const day = new Date(slot.date + "T12:00:00").getDay();
       if (!monitor.daysOfWeek.includes(day)) return false;
@@ -57,13 +57,21 @@ export async function runMonitorNow(monitorId: string) {
     if (monitor.dateFrom && slot.date < monitor.dateFrom) return false;
     if (monitor.dateTo && slot.date > monitor.dateTo) return false;
     return true;
-  });
+  };
+
+  // All currently available slots matching this monitor's criteria
+  const allMatchingAvailable = result.slots
+    .filter((s) => s.available && matchesMonitor(s))
+    .map((s) => ({ date: s.date, startTime: s.startTime, endTime: s.endTime, courtLabel: s.courtLabel }));
+
+  // New slots matching criteria — used for alerting only
+  const newMatchingSlots = newSlots.filter(matchesMonitor);
 
   let alertsSent = 0;
-  if (matchingSlots.length > 0) {
+  if (newMatchingSlots.length > 0) {
     alertsSent = await notifyNewSlots(
       { ...monitor, court: { name: court.name, bookingUrl: court.bookingUrl, metadata: court.metadata } },
-      matchingSlots
+      newMatchingSlots
     );
   }
 
@@ -76,9 +84,10 @@ export async function runMonitorNow(monitorId: string) {
   return {
     slotsFound: result.slots.length,
     newSlots: newSlots.length,
-    matchingSlots: matchingSlots.length,
+    matchingSlots: allMatchingAvailable.length,
     alertsSent,
     durationMs: result.durationMs,
+    availableSlots: allMatchingAvailable,
   };
 }
 
