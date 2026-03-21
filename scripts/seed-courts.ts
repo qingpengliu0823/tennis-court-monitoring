@@ -15,7 +15,7 @@ async function main() {
       bookingUrl: "https://outlook.office365.com/owa/calendar/GardenHallsTennis@upp-ltd.com/bookings/",
       location: "Garden Halls, Cartwright Gardens, London WC1H 9EN",
       metadata: {
-        lat: 51.5268, lng: -0.1275,
+        lat: 51.526756, lng: -0.126931,
         serviceTypes: [
           { name: "Garden Halls Resident", duration: "1 hour", price: "Free" },
           { name: "Student", duration: "1 hour", price: "£5/hr" },
@@ -31,7 +31,7 @@ async function main() {
       bookingUrl: "https://bookings.better.org.uk/location/islington-tennis-centre/tennis-activities",
       location: "Market Road, London N7 9PL",
       metadata: {
-        lat: 51.5513, lng: -0.1152,
+        lat: 51.545681, lng: -0.122495,
         activity: "tennis-court-outdoor",
         venue: "islington-tennis-centre",
         deepLink: "https://bookings.better.org.uk/location/islington-tennis-centre/tennis-court-outdoor",
@@ -46,7 +46,7 @@ async function main() {
       bookingUrl: "https://clubspark.lta.org.uk/FinsburyPark/Booking/BookByDate",
       location: "Finsbury Park, London N4 2DE",
       metadata: {
-        lat: 51.5637, lng: -0.1052,
+        lat: 51.567966, lng: -0.104544,
         venue: "FinsburyPark",
         deepLink: "https://clubspark.lta.org.uk/FinsburyPark/Booking/BookByDate",
         courts: 8, surface: "Hard", floodlit: true,
@@ -62,7 +62,7 @@ async function main() {
       location: "Randolph Avenue, London W9 1PD",
       enabled: false,
       metadata: {
-        lat: 51.5281, lng: -0.1828,
+        lat: 51.530517, lng: -0.188061,
         venue: "PaddingtonRecreationGround",
         deepLink: "https://clubspark.lta.org.uk/PaddingtonRecreationGround/Booking/BookByDate",
         courts: 13, surface: "Tarmac & Synthetic", floodlit: true,
@@ -79,7 +79,7 @@ async function main() {
       location: "Southgate Road, London N1 3JP",
       enabled: false,
       metadata: {
-        lat: 51.5396, lng: -0.0876,
+        lat: 51.538635, lng: -0.088458,
         venue: "RosemaryGardens",
         deepLink: "https://clubspark.lta.org.uk/RosemaryGardens/Booking/BookByDate",
         courts: 2, surface: "Tarmac",
@@ -93,7 +93,7 @@ async function main() {
       bookingUrl: "https://clubspark.lta.org.uk/ClissoldParkHackney/Booking/BookByDate",
       location: "Clissold Park, London N16 0BF",
       metadata: {
-        lat: 51.5612, lng: -0.0823,
+        lat: 51.562425, lng: -0.085177,
         venue: "ClissoldParkHackney",
         deepLink: "https://clubspark.lta.org.uk/ClissoldParkHackney/Booking/BookByDate",
         courts: 7, floodlit: true,
@@ -107,7 +107,7 @@ async function main() {
       bookingUrl: "https://clubspark.lta.org.uk/HackneyDowns/Booking/BookByDate",
       location: "Hackney Downs, London N16",
       metadata: {
-        lat: 51.5545, lng: -0.0574,
+        lat: 51.553048, lng: -0.060140,
         venue: "HackneyDowns",
         deepLink: "https://clubspark.lta.org.uk/HackneyDowns/Booking/BookByDate",
         courts: 5, floodlit: true,
@@ -121,7 +121,7 @@ async function main() {
       bookingUrl: "https://clubspark.lta.org.uk/LondonFieldsPark/Booking/BookByDate",
       location: "London Fields, London E8",
       metadata: {
-        lat: 51.5413, lng: -0.0596,
+        lat: 51.543269, lng: -0.061104,
         venue: "LondonFieldsPark",
         deepLink: "https://clubspark.lta.org.uk/LondonFieldsPark/Booking/BookByDate",
         courts: 2, surface: "Porous Macadam",
@@ -135,7 +135,7 @@ async function main() {
       bookingUrl: "https://clubspark.lta.org.uk/GeraldineMaryHarmsworth/Booking/BookByDate",
       location: "St George's Road, London SE1 6HZ",
       metadata: {
-        lat: 51.4978, lng: -0.1026,
+        lat: 51.496286, lng: -0.106161,
         venue: "GeraldineMaryHarmsworth",
         deepLink: "https://clubspark.lta.org.uk/GeraldineMaryHarmsworth/Booking/BookByDate",
         courts: 2, floodlit: true, surface: "All-weather",
@@ -150,7 +150,7 @@ async function main() {
       location: "Lambeth Palace Road, London SE1 7LQ",
       enabled: false,
       metadata: {
-        lat: 51.4984, lng: -0.1149,
+        lat: 51.497794, lng: -0.115971,
         venue: "TennisInLambeth",
         deepLink: "https://clubspark.lta.org.uk/TennisInLambeth/Booking/BookByDate",
         courts: 2, surface: "Tarmac",
@@ -166,7 +166,7 @@ async function main() {
       location: "Kennington Park Road, London SE11 4BE",
       enabled: false,
       metadata: {
-        lat: 51.4856, lng: -0.1077,
+        lat: 51.482193, lng: -0.109684,
         venue: "TennisInLambeth",
         deepLink: "https://clubspark.lta.org.uk/TennisInLambeth/Booking/BookByDate",
         courts: 4, surface: "Tarmac", floodlit: true,
@@ -180,7 +180,7 @@ async function main() {
       bookingUrl: "https://clubspark.lta.org.uk/SpringHillParkTennis/Booking/BookByDate",
       location: "Spring Hill, Hackney, London",
       metadata: {
-        lat: 51.5505, lng: -0.0530,
+        lat: 51.553653, lng: -0.051444,
         venue: "SpringHillParkTennis",
         deepLink: "https://clubspark.lta.org.uk/SpringHillParkTennis/Booking/BookByDate",
         courts: 2, surface: "Tarmac",
@@ -194,7 +194,7 @@ async function main() {
       bookingUrl: "https://clubspark.lta.org.uk/ElthorneTennis/Booking/BookByDate",
       location: "Elthorne Park, Haringey, London",
       metadata: {
-        lat: 51.5770, lng: -0.1289,
+        lat: 51.576273, lng: -0.131025,
         venue: "ElthorneTennis",
         deepLink: "https://clubspark.lta.org.uk/ElthorneTennis/Booking/BookByDate",
         courts: 3, floodlit: true,
@@ -209,7 +209,7 @@ async function main() {
       bookingUrl: "https://clubspark.lta.org.uk/SouthwarkPark/Booking/BookByDate",
       location: "Jamaica Gate entrance, London SE16",
       metadata: {
-        lat: 51.4929, lng: -0.0565,
+        lat: 51.495907, lng: -0.058301,
         venue: "SouthwarkPark",
         deepLink: "https://clubspark.lta.org.uk/SouthwarkPark/Booking/BookByDate",
         courts: 4, surface: "Tarmac",
@@ -222,7 +222,7 @@ async function main() {
       bookingUrl: "https://clubspark.lta.org.uk/claphamcommon/Booking/BookByDate",
       location: "Windmill Drive, London SW4 9AN",
       metadata: {
-        lat: 51.4600, lng: -0.1580,
+        lat: 51.454502, lng: -0.150650,
         venue: "claphamcommon",
         deepLink: "https://clubspark.lta.org.uk/claphamcommon/Booking/BookByDate",
         courts: 8, floodlit: true,
@@ -236,7 +236,7 @@ async function main() {
       bookingUrl: "https://clubspark.lta.org.uk/BethnalGreenGardens/Booking/BookByDate",
       location: "Malcolm Place, London E2 0EU",
       metadata: {
-        lat: 51.5280, lng: -0.0625,
+        lat: 51.526894, lng: -0.070646,
         venue: "BethnalGreenGardens",
         deepLink: "https://clubspark.lta.org.uk/BethnalGreenGardens/Booking/BookByDate",
         courts: 4, surface: "Hard", floodlit: true,
@@ -250,7 +250,7 @@ async function main() {
       bookingUrl: "https://clubspark.lta.org.uk/KingEdwardMemorialPark/Booking/BookByDate",
       location: "Glamis Road, London E1W 3TD",
       metadata: {
-        lat: 51.5087, lng: -0.0467,
+        lat: 51.509016, lng: -0.049898,
         venue: "KingEdwardMemorialPark",
         deepLink: "https://clubspark.lta.org.uk/KingEdwardMemorialPark/Booking/BookByDate",
         courts: 4, surface: "Porous Macadam",
@@ -266,7 +266,7 @@ async function main() {
       location: "Plevna Street, Tower Hamlets, London",
       enabled: false,
       metadata: {
-        lat: 51.5166, lng: -0.0270,
+        lat: 51.519264, lng: -0.024375,
         venue: "StJohnsPark",
         deepLink: "https://clubspark.lta.org.uk/StJohnsPark/Booking/BookByDate",
         courts: 2, floodlit: true,
@@ -283,7 +283,7 @@ async function main() {
       location: "Highbury Fields, London N5",
       enabled: false,
       metadata: {
-        lat: 51.5510, lng: -0.0980,
+        lat: 51.550869, lng: -0.099089,
         venue: "HighburyFieldsLondon",
         deepLink: "https://clubspark.lta.org.uk/HighburyFieldsLondon/Booking/BookByDate",
         courts: 11, surface: "Tarmac", floodlit: true,
@@ -298,7 +298,7 @@ async function main() {
       bookingUrl: "https://camdenactive.camden.gov.uk/sports/lincolnsinnfields/",
       location: "Gate opposite Royal College of Surgeons, London WC2A",
       metadata: {
-        lat: 51.5154, lng: -0.1176,
+        lat: 51.515784, lng: -0.116903,
         venue: "lincolnsinnfields",
         deepLink: "https://camdenactive.camden.gov.uk/sports/lincolnsinnfields/",
         courts: 3, surface: "Tarmac",
@@ -317,7 +317,7 @@ async function main() {
       bookingUrl: "https://camdenactive.camden.gov.uk/sports/waterlow/",
       location: "Swains Lane / Highgate Hill, London N6",
       metadata: {
-        lat: 51.5674, lng: -0.1449,
+        lat: 51.569473, lng: -0.145047,
         venue: "waterlow",
         deepLink: "https://camdenactive.camden.gov.uk/sports/waterlow/",
         courts: 6, surface: "Tarmac",
@@ -339,7 +339,7 @@ async function main() {
       bookingUrl: "https://camdenactive.camden.gov.uk/sport/kilburngrange/",
       location: "Messina Avenue, London NW6",
       metadata: {
-        lat: 51.5446, lng: -0.1959,
+        lat: 51.542896, lng: -0.197600,
         venue: "kilburngrange",
         deepLink: "https://camdenactive.camden.gov.uk/sport/kilburngrange/",
         courts: 3, surface: "Tarmac",
@@ -359,7 +359,7 @@ async function main() {
       bookingUrl: "https://clubspark.lta.org.uk/hollandpark2/Booking/BookByDate",
       location: "Holland Park, London W8 6LU",
       metadata: {
-        lat: 51.5020, lng: -0.2044,
+        lat: 51.500972, lng: -0.204273,
         venue: "hollandpark2",
         deepLink: "https://clubspark.lta.org.uk/hollandpark2/Booking/BookByDate",
         courts: 6, surface: "Tarmac", floodlit: true,
@@ -373,7 +373,7 @@ async function main() {
       bookingUrl: "https://clubspark.lta.org.uk/AvondalePark/Booking/BookByDate",
       location: "Avondale Park, London W11 4PQ",
       metadata: {
-        lat: 51.5117, lng: -0.2091,
+        lat: 51.510764, lng: -0.212566,
         venue: "AvondalePark",
         deepLink: "https://clubspark.lta.org.uk/AvondalePark/Booking/BookByDate",
         courts: 3, surface: "Artificial Turf",
@@ -386,7 +386,7 @@ async function main() {
       bookingUrl: "https://clubspark.lta.org.uk/KensingtonMemorialPark/Booking/BookByDate",
       location: "Kensington Memorial Park, London W10 6LH",
       metadata: {
-        lat: 51.5155, lng: -0.2168,
+        lat: 51.514525, lng: -0.220383,
         venue: "KensingtonMemorialPark",
         deepLink: "https://clubspark.lta.org.uk/KensingtonMemorialPark/Booking/BookByDate",
         courts: 3, surface: "Tarmac",
@@ -401,7 +401,7 @@ async function main() {
       bookingUrl: "https://clubspark.lta.org.uk/HurlinghamPark/Booking/BookByDate",
       location: "Hurlingham Park, London SW6",
       metadata: {
-        lat: 51.4676, lng: -0.1943,
+        lat: 51.467460, lng: -0.193456,
         venue: "HurlinghamPark",
         deepLink: "https://clubspark.lta.org.uk/HurlinghamPark/Booking/BookByDate",
         courts: 3, surface: "Synthetic Grass",
@@ -414,7 +414,7 @@ async function main() {
       bookingUrl: "https://clubspark.lta.org.uk/eelbrookcommon/Booking/BookByDate",
       location: "Eel Brook Common, London SW6 4QD",
       metadata: {
-        lat: 51.4750, lng: -0.1920,
+        lat: 51.476218, lng: -0.195716,
         venue: "eelbrookcommon",
         deepLink: "https://clubspark.lta.org.uk/eelbrookcommon/Booking/BookByDate",
         courts: 2,
@@ -427,7 +427,7 @@ async function main() {
       bookingUrl: "https://clubspark.lta.org.uk/LinfordChristieStadium/Booking/BookByDate",
       location: "Linford Christie Stadium, London W12 0DF",
       metadata: {
-        lat: 51.5134, lng: -0.2300,
+        lat: 51.510641, lng: -0.228371,
         venue: "LinfordChristieStadium",
         deepLink: "https://clubspark.lta.org.uk/LinfordChristieStadium/Booking/BookByDate",
         courts: 3, surface: "Tarmac", floodlit: true,
@@ -441,7 +441,7 @@ async function main() {
       bookingUrl: "https://clubspark.lta.org.uk/brookgreentennisclub/Booking/BookByDate",
       location: "Brook Green, London W14",
       metadata: {
-        lat: 51.4943, lng: -0.2174,
+        lat: 51.495097, lng: -0.221977,
         venue: "brookgreentennisclub",
         deepLink: "https://clubspark.lta.org.uk/brookgreentennisclub/Booking/BookByDate",
       },
@@ -454,7 +454,7 @@ async function main() {
       bookingUrl: "https://clubspark.lta.org.uk/ActonPark2/Booking/BookByDate",
       location: "Acton Park, London W3 7JX",
       metadata: {
-        lat: 51.5087, lng: -0.2743,
+        lat: 51.505623, lng: -0.281564,
         venue: "ActonPark2",
         deepLink: "https://clubspark.lta.org.uk/ActonPark2/Booking/BookByDate",
         courts: 2, surface: "Tarmac",
@@ -468,7 +468,7 @@ async function main() {
       bookingUrl: "https://clubspark.lta.org.uk/gunnersburypark/Booking/BookByDate",
       location: "Gunnersbury Park, London W3 8LQ",
       metadata: {
-        lat: 51.4930, lng: -0.2870,
+        lat: 51.485939, lng: -0.287221,
         venue: "gunnersburypark",
         deepLink: "https://clubspark.lta.org.uk/gunnersburypark/Booking/BookByDate",
         pricing: { day: "£8.50/hr", floodlit: "£10.60/hr" },
@@ -481,7 +481,7 @@ async function main() {
       bookingUrl: "https://clubspark.lta.org.uk/NorthActonPlayingFieldsTennisClub/Booking/BookByDate",
       location: "North Acton Playing Fields, London W3 0JF",
       metadata: {
-        lat: 51.5225, lng: -0.2670,
+        lat: 51.519828, lng: -0.269382,
         venue: "NorthActonPlayingFieldsTennisClub",
         deepLink: "https://clubspark.lta.org.uk/NorthActonPlayingFieldsTennisClub/Booking/BookByDate",
         courts: 5,
@@ -495,7 +495,7 @@ async function main() {
       bookingUrl: "https://clubspark.lta.org.uk/SouthallPark2/Booking/BookByDate",
       location: "Southall Park, Southall UB1 3BT",
       metadata: {
-        lat: 51.5104, lng: -0.3747,
+        lat: 51.508480, lng: -0.372868,
         venue: "SouthallPark2",
         deepLink: "https://clubspark.lta.org.uk/SouthallPark2/Booking/BookByDate",
         pricing: { standard: "Free (booking required)" },
@@ -508,7 +508,7 @@ async function main() {
       bookingUrl: "https://clubspark.lta.org.uk/PerivalePark/Booking/BookByDate",
       location: "Perivale Park, Greenford UB6 8TJ",
       metadata: {
-        lat: 51.5360, lng: -0.3230,
+        lat: 51.531787, lng: -0.327495,
         venue: "PerivalePark",
         deepLink: "https://clubspark.lta.org.uk/PerivalePark/Booking/BookByDate",
         pricing: { standard: "Free (booking required)" },
@@ -522,7 +522,7 @@ async function main() {
       bookingUrl: "https://clubspark.lta.org.uk/PalewellCommon/Booking/BookByDate",
       location: "Palewell Common, London SW14 8RF",
       metadata: {
-        lat: 51.4600, lng: -0.2630,
+        lat: 51.459500, lng: -0.261167,
         venue: "PalewellCommon",
         deepLink: "https://clubspark.lta.org.uk/PalewellCommon/Booking/BookByDate",
         courts: 4,
@@ -536,7 +536,7 @@ async function main() {
       bookingUrl: "https://clubspark.lta.org.uk/OldDeerPark/Booking/BookByDate",
       location: "Old Deer Park, Richmond TW9 2SF",
       metadata: {
-        lat: 51.4690, lng: -0.3050,
+        lat: 51.465742, lng: -0.308266,
         venue: "OldDeerPark",
         deepLink: "https://clubspark.lta.org.uk/OldDeerPark/Booking/BookByDate",
         pricing: { standard: "£11/hr" },
@@ -549,7 +549,7 @@ async function main() {
       bookingUrl: "https://clubspark.lta.org.uk/SheenCommon/Booking/BookByDate",
       location: "Sheen Common, London SW14 7ER",
       metadata: {
-        lat: 51.4540, lng: -0.2560,
+        lat: 51.455598, lng: -0.255458,
         venue: "SheenCommon",
         deepLink: "https://clubspark.lta.org.uk/SheenCommon/Booking/BookByDate",
         courts: 4,
@@ -563,7 +563,7 @@ async function main() {
       bookingUrl: "https://clubspark.lta.org.uk/CarlisleParkRichmond/Booking/BookByDate",
       location: "Carlisle Park, Hampton Hill TW12 2LY",
       metadata: {
-        lat: 51.4210, lng: -0.3430,
+        lat: 51.420555, lng: -0.335397,
         venue: "CarlisleParkRichmond",
         deepLink: "https://clubspark.lta.org.uk/CarlisleParkRichmond/Booking/BookByDate",
         courts: 7,
@@ -577,7 +577,7 @@ async function main() {
       bookingUrl: "https://clubspark.lta.org.uk/MoorMeadRecreationGround/Booking/BookByDate",
       location: "Moor Mead Recreation Ground, Twickenham TW1 1JS",
       metadata: {
-        lat: 51.4510, lng: -0.3260,
+        lat: 51.450750, lng: -0.324943,
         venue: "MoorMeadRecreationGround",
         deepLink: "https://clubspark.lta.org.uk/MoorMeadRecreationGround/Booking/BookByDate",
         courts: 4,
@@ -592,7 +592,7 @@ async function main() {
       bookingUrl: "https://clubspark.lta.org.uk/BatterseaParkTennisCourts/Booking/BookByDate",
       location: "Battersea Park, London SW11 4NJ",
       metadata: {
-        lat: 51.4800, lng: -0.1560,
+        lat: 51.481325, lng: -0.154343,
         venue: "BatterseaParkTennisCourts",
         deepLink: "https://clubspark.lta.org.uk/BatterseaParkTennisCourts/Booking/BookByDate",
         courts: 16, surface: "Tarmac & Astro", floodlit: true,
@@ -605,7 +605,7 @@ async function main() {
       bookingUrl: "https://clubspark.lta.org.uk/WimbledonPark/Booking/BookByDate",
       location: "Wimbledon Park, London SW19",
       metadata: {
-        lat: 51.4340, lng: -0.1990,
+        lat: 51.436059, lng: -0.202699,
         venue: "WimbledonPark",
         deepLink: "https://clubspark.lta.org.uk/WimbledonPark/Booking/BookByDate",
         pricing: { offPeak: "£10.70", peak: "£13.90" },
@@ -619,7 +619,7 @@ async function main() {
       bookingUrl: "https://clubspark.lta.org.uk/QueensParkTennisCourts/Booking/BookByDate",
       location: "Queen's Park, London NW6",
       metadata: {
-        lat: 51.5340, lng: -0.2050,
+        lat: 51.535906, lng: -0.211829,
         venue: "QueensParkTennisCourts",
         deepLink: "https://clubspark.lta.org.uk/QueensParkTennisCourts/Booking/BookByDate",
         courts: 6,
@@ -634,7 +634,7 @@ async function main() {
       bookingUrl: "https://clubspark.lta.org.uk/ParliamentHillFieldsTennisCourts/Booking/BookByDate",
       location: "Parliament Hill Fields, Hampstead Heath, London NW5",
       metadata: {
-        lat: 51.5570, lng: -0.1510,
+        lat: 51.557156, lng: -0.149754,
         venue: "ParliamentHillFieldsTennisCourts",
         deepLink: "https://clubspark.lta.org.uk/ParliamentHillFieldsTennisCourts/Booking/BookByDate",
         courts: 10, surface: "Hard",
@@ -648,7 +648,7 @@ async function main() {
       bookingUrl: "https://clubspark.lta.org.uk/GoldersHillPark/Booking/BookByDate",
       location: "Golders Hill Park, Hampstead Heath, London NW11",
       metadata: {
-        lat: 51.5710, lng: -0.1860,
+        lat: 51.573723, lng: -0.189007,
         venue: "GoldersHillPark",
         deepLink: "https://clubspark.lta.org.uk/GoldersHillPark/Booking/BookByDate",
         pricing: { standard: "£11.10/hr", concession: "£6.70/hr" },
@@ -661,7 +661,7 @@ async function main() {
       bookingUrl: "https://clubspark.lta.org.uk/GladstoneParkTennis/Booking/BookByDate",
       location: "Gladstone Park, Dollis Hill, London NW2",
       metadata: {
-        lat: 51.5530, lng: -0.2310,
+        lat: 51.559628, lng: -0.239670,
         venue: "GladstoneParkTennis",
         deepLink: "https://clubspark.lta.org.uk/GladstoneParkTennis/Booking/BookByDate",
         courts: 8, surface: "Macadam",
@@ -674,7 +674,7 @@ async function main() {
       bookingUrl: "https://clubspark.lta.org.uk/RavenscourtPark/Booking/BookByDate",
       location: "Ravenscourt Park, London W6",
       metadata: {
-        lat: 51.4940, lng: -0.2370,
+        lat: 51.494901, lng: -0.237160,
         venue: "RavenscourtPark",
         deepLink: "https://clubspark.lta.org.uk/RavenscourtPark/Booking/BookByDate",
         courts: 7, surface: "Tarmac",
@@ -688,7 +688,7 @@ async function main() {
       bookingUrl: "https://clubspark.lta.org.uk/BlackheathPark/Booking/BookByDate",
       location: "Chesterfield Walk, Blackheath, London SE10 8QX",
       metadata: {
-        lat: 51.4680, lng: 0.0050,
+        lat: 51.464715, lng: -0.002281,
         venue: "BlackheathPark",
         deepLink: "https://clubspark.lta.org.uk/BlackheathPark/Booking/BookByDate",
         courts: 3, surface: "Hard",
@@ -702,7 +702,7 @@ async function main() {
       bookingUrl: "https://clubspark.lta.org.uk/MaryonPark/Booking/BookByDate",
       location: "Maryon Park, Charlton, London SE7",
       metadata: {
-        lat: 51.4860, lng: 0.0250,
+        lat: 51.478901, lng: 0.027441,
         venue: "MaryonPark",
         deepLink: "https://clubspark.lta.org.uk/MaryonPark/Booking/BookByDate",
         pricing: { standard: "£3/hr" },
@@ -715,7 +715,7 @@ async function main() {
       bookingUrl: "https://clubspark.lta.org.uk/PlumsteadCommon/Booking/BookByDate",
       location: "Plumstead Common, London SE18",
       metadata: {
-        lat: 51.4810, lng: 0.0540,
+        lat: 51.480972, lng: 0.054303,
         venue: "PlumsteadCommon",
         deepLink: "https://clubspark.lta.org.uk/PlumsteadCommon/Booking/BookByDate",
         pricing: { standard: "£3/hr" },
@@ -728,7 +728,7 @@ async function main() {
       bookingUrl: "https://clubspark.lta.org.uk/KidbrookeGreen/Booking/BookByDate",
       location: "Kidbrooke Green, London SE9",
       metadata: {
-        lat: 51.4510, lng: 0.0360,
+        lat: 51.451504, lng: 0.037273,
         venue: "KidbrookeGreen",
         deepLink: "https://clubspark.lta.org.uk/KidbrookeGreen/Booking/BookByDate",
         pricing: { standard: "£3/hr" },
@@ -741,7 +741,7 @@ async function main() {
       bookingUrl: "https://clubspark.lta.org.uk/BostallGardens/Booking/BookByDate",
       location: "Bostall Gardens, London SE2",
       metadata: {
-        lat: 51.4760, lng: 0.0760,
+        lat: 51.471816, lng: 0.072325,
         venue: "BostallGardens",
         deepLink: "https://clubspark.lta.org.uk/BostallGardens/Booking/BookByDate",
         pricing: { standard: "£3/hr" },
@@ -754,7 +754,7 @@ async function main() {
       bookingUrl: "https://clubspark.lta.org.uk/AltashGardens/Booking/BookByDate",
       location: "Altash Gardens, London SE9 3AL",
       metadata: {
-        lat: 51.4530, lng: 0.0720,
+        lat: 51.454633, lng: 0.067640,
         venue: "AltashGardens",
         deepLink: "https://clubspark.lta.org.uk/AltashGardens/Booking/BookByDate",
         pricing: { standard: "£3/hr" },
@@ -768,7 +768,7 @@ async function main() {
       bookingUrl: "https://clubspark.lta.org.uk/BurgessParkSouthwark/Booking/BookByDate",
       location: "Burgess Park, London SE5 7LA",
       metadata: {
-        lat: 51.4860, lng: -0.0780,
+        lat: 51.493077, lng: -0.073038,
         venue: "BurgessParkSouthwark",
         deepLink: "https://clubspark.lta.org.uk/BurgessParkSouthwark/Booking/BookByDate",
         courts: 7, floodlit: true,
@@ -782,7 +782,7 @@ async function main() {
       bookingUrl: "https://clubspark.lta.org.uk/DulwichPark/Booking/BookByDate",
       location: "Dulwich Park, London SE21 7EB",
       metadata: {
-        lat: 51.4500, lng: -0.0780,
+        lat: 51.452727, lng: -0.081018,
         venue: "DulwichPark",
         deepLink: "https://clubspark.lta.org.uk/DulwichPark/Booking/BookByDate",
         courts: 4,
@@ -796,7 +796,7 @@ async function main() {
       bookingUrl: "https://clubspark.lta.org.uk/BelairPark/Booking/BookByDate",
       location: "Belair Park, London SE21 7EX",
       metadata: {
-        lat: 51.4460, lng: -0.0870,
+        lat: 51.444272, lng: -0.087135,
         venue: "BelairPark",
         deepLink: "https://clubspark.lta.org.uk/BelairPark/Booking/BookByDate",
         pricing: { peak: "£9.40/hr", offPeak: "£6.80/hr" },
@@ -809,7 +809,7 @@ async function main() {
       bookingUrl: "https://clubspark.lta.org.uk/TannerStPark/Booking/BookByDate",
       location: "Tanner Street Park, Bermondsey, London SE1 3LL",
       metadata: {
-        lat: 51.4990, lng: -0.0770,
+        lat: 51.500012, lng: -0.080131,
         venue: "TannerStPark",
         deepLink: "https://clubspark.lta.org.uk/TannerStPark/Booking/BookByDate",
         pricing: { peak: "£9.40/hr", offPeak: "£6.80/hr" },
@@ -822,7 +822,7 @@ async function main() {
       bookingUrl: "https://clubspark.lta.org.uk/BrunswickParkSouthwark/Booking/BookByDate",
       location: "Brunswick Park, London SE5 7RH",
       metadata: {
-        lat: 51.4780, lng: -0.0830,
+        lat: 51.475195, lng: -0.085515,
         venue: "BrunswickParkSouthwark",
         deepLink: "https://clubspark.lta.org.uk/BrunswickParkSouthwark/Booking/BookByDate",
         pricing: { peak: "£9.40/hr", offPeak: "£6.80/hr" },
@@ -836,7 +836,7 @@ async function main() {
       bookingUrl: "https://clubspark.lta.org.uk/ruskinpark/Booking/BookByDate",
       location: "Ruskin Park, Denmark Hill, London SE5 8EL",
       metadata: {
-        lat: 51.4680, lng: -0.0880,
+        lat: 51.466403, lng: -0.094051,
         venue: "ruskinpark",
         deepLink: "https://clubspark.lta.org.uk/ruskinpark/Booking/BookByDate",
       },
@@ -848,7 +848,7 @@ async function main() {
       bookingUrl: "https://clubspark.lta.org.uk/vauxhallpark/Booking/BookByDate",
       location: "Vauxhall Park, London SW8 1UD",
       metadata: {
-        lat: 51.4820, lng: -0.1180,
+        lat: 51.482551, lng: -0.122581,
         venue: "vauxhallpark",
         deepLink: "https://clubspark.lta.org.uk/vauxhallpark/Booking/BookByDate",
         courts: 2,
@@ -861,7 +861,7 @@ async function main() {
       bookingUrl: "https://clubspark.lta.org.uk/HillsideGardensPark/Booking/BookByDate",
       location: "Hillside Gardens Park, London SW2 3HL",
       metadata: {
-        lat: 51.4500, lng: -0.1170,
+        lat: 51.450940, lng: -0.108588,
         venue: "HillsideGardensPark",
         deepLink: "https://clubspark.lta.org.uk/HillsideGardensPark/Booking/BookByDate",
         courts: 4,
@@ -875,7 +875,7 @@ async function main() {
       bookingUrl: "https://clubspark.lta.org.uk/westhampark/Booking/BookByDate",
       location: "West Ham Park, London E15",
       metadata: {
-        lat: 51.5400, lng: 0.0130,
+        lat: 51.537600, lng: 0.007189,
         venue: "westhampark",
         deepLink: "https://clubspark.lta.org.uk/westhampark/Booking/BookByDate",
         courts: 6, surface: "Hard",
@@ -889,7 +889,7 @@ async function main() {
       bookingUrl: "https://clubspark.lta.org.uk/HonorOakRecreationGround/Booking/BookByDate",
       location: "Honor Oak Recreation Ground, London SE23 3LB",
       metadata: {
-        lat: 51.4490, lng: -0.0490,
+        lat: 51.452200, lng: -0.044522,
         venue: "HonorOakRecreationGround",
         deepLink: "https://clubspark.lta.org.uk/HonorOakRecreationGround/Booking/BookByDate",
         pricing: { peak: "£9.40/hr", offPeak: "£6.80/hr" },
@@ -903,7 +903,7 @@ async function main() {
       bookingUrl: "https://sportsandleisureroyalparks.bookings.flow.onl/location/hyde-park-courts/tennis",
       location: "Hyde Park, South Carriage Drive, London W2 2UH",
       metadata: {
-        lat: 51.5053, lng: -0.1657,
+        lat: 51.503222, lng: -0.172189,
         venue: "hyde-park-courts",
         deepLink: "https://sportsandleisureroyalparks.bookings.flow.onl/location/hyde-park-courts/tennis",
         courts: 6, floodlit: true,
@@ -916,7 +916,7 @@ async function main() {
       bookingUrl: "https://sportsandleisureroyalparks.bookings.flow.onl/location/the-regents-park-courts/tennis",
       location: "The Regent's Park, York Bridge, London NW1 4NR",
       metadata: {
-        lat: 51.5270, lng: -0.1534,
+        lat: 51.525830, lng: -0.152566,
         venue: "the-regents-park-courts",
         deepLink: "https://sportsandleisureroyalparks.bookings.flow.onl/location/the-regents-park-courts/tennis",
         courts: 12, floodlit: true,
@@ -929,7 +929,7 @@ async function main() {
       bookingUrl: "https://sportsandleisureroyalparks.bookings.flow.onl/location/greenwich-park-courts/tennis",
       location: "Greenwich Park, Blackheath Avenue, London SE10 8QY",
       metadata: {
-        lat: 51.4769, lng: -0.0005,
+        lat: 51.474517, lng: -0.001089,
         venue: "greenwich-park-courts",
         deepLink: "https://sportsandleisureroyalparks.bookings.flow.onl/location/greenwich-park-courts/tennis",
         courts: 6,
@@ -943,7 +943,7 @@ async function main() {
       bookingUrl: "https://clubspark.lta.org.uk/VictoriaParkLONDON/Booking/BookByDate",
       location: "Victoria Park, London E9 5DU",
       metadata: {
-        lat: 51.5370, lng: -0.0380,
+        lat: 51.540360, lng: -0.033918,
         venue: "VictoriaParkLONDON",
         deepLink: "https://clubspark.lta.org.uk/VictoriaParkLONDON/Booking/BookByDate",
         courts: 4, surface: "Hard",
@@ -957,7 +957,7 @@ async function main() {
       bookingUrl: "https://clubspark.lta.org.uk/PoplarRecGround/Booking/BookByDate",
       location: "Poplar Recreation Ground, London E14 0BP",
       metadata: {
-        lat: 51.5130, lng: -0.0170,
+        lat: 51.510734, lng: -0.016257,
         venue: "PoplarRecGround",
         deepLink: "https://clubspark.lta.org.uk/PoplarRecGround/Booking/BookByDate",
         pricing: { offPeak: "£4/hr", peak: "£6/hr" },
@@ -970,7 +970,7 @@ async function main() {
       bookingUrl: "https://clubspark.lta.org.uk/RopemakersFields/Booking/BookByDate",
       location: "Ropemakers Fields, Limehouse, London E14 8BX",
       metadata: {
-        lat: 51.5095, lng: -0.0310,
+        lat: 51.509676, lng: -0.031879,
         venue: "RopemakersFields",
         deepLink: "https://clubspark.lta.org.uk/RopemakersFields/Booking/BookByDate",
         pricing: { offPeak: "£4/hr", peak: "£6/hr" },
@@ -983,7 +983,7 @@ async function main() {
       bookingUrl: "https://clubspark.lta.org.uk/WappingGardens/Booking/BookByDate",
       location: "Wapping Gardens, London E1 2QE",
       metadata: {
-        lat: 51.5070, lng: -0.0590,
+        lat: 51.504263, lng: -0.059901,
         venue: "WappingGardens",
         deepLink: "https://clubspark.lta.org.uk/WappingGardens/Booking/BookByDate",
         pricing: { offPeak: "£4/hr", peak: "£6/hr" },
@@ -997,7 +997,7 @@ async function main() {
       bookingUrl: "https://clubspark.lta.org.uk/ValentinesPark/Booking/BookByDate",
       location: "Valentines Park, Ilford IG1",
       metadata: {
-        lat: 51.5640, lng: 0.0770,
+        lat: 51.567730, lng: 0.085155,
         venue: "ValentinesPark",
         deepLink: "https://clubspark.lta.org.uk/ValentinesPark/Booking/BookByDate",
         pricing: { offPeak: "£3/hr", peak: "£6/hr" },
@@ -1010,7 +1010,7 @@ async function main() {
       bookingUrl: "https://clubspark.lta.org.uk/ClayhallPark/Booking/BookByDate",
       location: "Clayhall Park, Ilford IG5 0EB",
       metadata: {
-        lat: 51.5800, lng: 0.0620,
+        lat: 51.584284, lng: 0.057084,
         venue: "ClayhallPark",
         deepLink: "https://clubspark.lta.org.uk/ClayhallPark/Booking/BookByDate",
         pricing: { offPeak: "£3/hr", peak: "£6/hr" },
@@ -1049,7 +1049,7 @@ async function main() {
       bookingUrl: "https://clubspark.lta.org.uk/BarkingsideRecreationGround/Booking/BookByDate",
       location: "Barkingside Recreation Ground, Ilford IG6 2PE",
       metadata: {
-        lat: 51.5860, lng: 0.0770,
+        lat: 51.588659, lng: 0.079622,
         venue: "BarkingsideRecreationGround",
         deepLink: "https://clubspark.lta.org.uk/BarkingsideRecreationGround/Booking/BookByDate",
         pricing: { offPeak: "£3/hr", peak: "£6/hr" },
@@ -1062,7 +1062,7 @@ async function main() {
       bookingUrl: "https://clubspark.lta.org.uk/RayPark/Booking/BookByDate",
       location: "Ray Park, Woodford Green IG7",
       metadata: {
-        lat: 51.5900, lng: 0.0480,
+        lat: 51.592456, lng: 0.060217,
         venue: "RayPark",
         deepLink: "https://clubspark.lta.org.uk/RayPark/Booking/BookByDate",
         pricing: { offPeak: "£3/hr", peak: "£6/hr" },
@@ -1076,7 +1076,7 @@ async function main() {
       bookingUrl: "https://clubspark.lta.org.uk/BarkingPark/Booking/BookByDate",
       location: "Barking Park, Barking IG11",
       metadata: {
-        lat: 51.5400, lng: 0.0810,
+        lat: 51.545286, lng: 0.086596,
         venue: "BarkingPark",
         deepLink: "https://clubspark.lta.org.uk/BarkingPark/Booking/BookByDate",
       },
@@ -1089,7 +1089,7 @@ async function main() {
       bookingUrl: "https://clubspark.lta.org.uk/RomanParkTennis/Booking/BookByDate",
       location: "Roman Park, Newham, London",
       metadata: {
-        lat: 51.5200, lng: 0.0200,
+        lat: 51.524231, lng: 0.014979,
         venue: "RomanParkTennis",
         deepLink: "https://clubspark.lta.org.uk/RomanParkTennis/Booking/BookByDate",
       },
@@ -1102,7 +1102,7 @@ async function main() {
       bookingUrl: "https://clubspark.lta.org.uk/RaphaelPark/Booking/BookByDate",
       location: "Raphael Park, Romford RM2 5EB",
       metadata: {
-        lat: 51.5730, lng: 0.1890,
+        lat: 51.571685, lng: 0.199956,
         venue: "RaphaelPark",
         deepLink: "https://clubspark.lta.org.uk/RaphaelPark/Booking/BookByDate",
         courts: 12, surface: "Tarmac",
@@ -1117,7 +1117,7 @@ async function main() {
       bookingUrl: "https://clubspark.lta.org.uk/PrioryPark2/Booking/BookByDate",
       location: "Priory Park, London N8",
       metadata: {
-        lat: 51.5810, lng: -0.1140,
+        lat: 51.579788, lng: -0.112839,
         venue: "PrioryPark2",
         deepLink: "https://clubspark.lta.org.uk/PrioryPark2/Booking/BookByDate",
         courts: 4,
@@ -1131,7 +1131,7 @@ async function main() {
       bookingUrl: "https://clubspark.lta.org.uk/downhillsparktennisclub/Booking/BookByDate",
       location: "Downhills Park, London N17 6PD",
       metadata: {
-        lat: 51.5880, lng: -0.0820,
+        lat: 51.589517, lng: -0.087423,
         venue: "downhillsparktennisclub",
         deepLink: "https://clubspark.lta.org.uk/downhillsparktennisclub/Booking/BookByDate",
         courts: 2,
@@ -1172,7 +1172,7 @@ async function main() {
       bookingUrl: "https://clubspark.lta.org.uk/LoxfordPark/Booking/BookByDate",
       location: "Loxford Park, Ilford IG1",
       metadata: {
-        lat: 51.5530, lng: 0.0770,
+        lat: 51.548753, lng: 0.079406,
         venue: "LoxfordPark",
         deepLink: "https://clubspark.lta.org.uk/LoxfordPark/Booking/BookByDate",
         pricing: { offPeak: "£3/hr", peak: "£6/hr" },

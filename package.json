@@ -10,6 +10,9 @@
     "db:migrate": "npx prisma migrate dev",
     "db:studio": "npx prisma studio",
     "db:seed": "npx tsx scripts/seed-courts.ts",
+    "geocode": "npx tsx scripts/geocode-courts.ts",
+    "geocode:apply": "npx tsx scripts/geocode-courts.ts --apply",
+    "geocode:refresh": "npx tsx scripts/geocode-courts.ts --refresh",
     "test:scrape": "npx tsx scripts/test-scrape.ts",
     "test:telegram": "npx tsx scripts/test-telegram.ts"
   },

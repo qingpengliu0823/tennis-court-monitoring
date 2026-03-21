@@ -22,9 +22,14 @@ npm run dev            # Dev server on port 3456
 npm run db:seed        # Insert new courts from scripts/seed-courts.ts (safe to re-run, skips existing)
 npm run db:migrate     # Run Prisma migrations
 npm run db:studio      # Prisma Studio GUI
+npm run geocode        # Check court location precision against OSM data (dry-run)
+npm run geocode:apply  # Fix coordinates in seed file + database
+npm run geocode:refresh # Clear OSM cache, then dry-run with fresh data
 npm run test:scrape    # Test a scraper: --adapter <name> or --court <slug>
 npm run test:telegram  # Test Telegram bot
 ```
+
+> **Location precision:** When asked to check or improve court marker accuracy, run `npm run geocode` first (dry-run), then `npm run geocode:apply` if results look good. Courts needing manual fixes are listed in `docs/geocode-report.md`.
 
 ## Architecture
 
