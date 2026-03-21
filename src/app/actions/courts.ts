@@ -3,8 +3,9 @@
 import { prisma } from "@/lib/prisma";
 import { revalidatePath } from "next/cache";
 
-export async function getCourts() {
+export async function getCourts({ includeDisabled = false } = {}) {
   return prisma.court.findMany({
+    where: includeDisabled ? undefined : { enabled: true },
     orderBy: { name: "asc" },
     include: {
       _count: { select: { snapshots: true, monitors: true } },
