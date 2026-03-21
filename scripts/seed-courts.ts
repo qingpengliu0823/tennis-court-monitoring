@@ -229,32 +229,38 @@ async function main() {
       },
     },
     // Tower Hamlets courts (migrated from Courtside to ClubSpark)
+    // Disabled: marked as Closed (Category 8000) on ClubSpark as of 2026-03-21
     {
       name: "Bethnal Green Gardens Tennis",
       slug: "bethnal-green-gardens",
       bookingSystem: "clubspark",
       bookingUrl: "https://clubspark.lta.org.uk/BethnalGreenGardens/Booking/BookByDate",
       location: "Malcolm Place, London E2 0EU",
+      enabled: false,
       metadata: {
         lat: 51.526894, lng: -0.070646,
         venue: "BethnalGreenGardens",
         deepLink: "https://clubspark.lta.org.uk/BethnalGreenGardens/Booking/BookByDate",
         courts: 4, surface: "Hard", floodlit: true,
         pricing: { adult: "£4-6" },
+        note: "Closed on ClubSpark (Category 8000) as of 2026-03-21",
       },
     },
+    // Disabled: marked as Closed (Category 8000) on ClubSpark as of 2026-03-21
     {
       name: "King Edward Memorial Park Tennis",
       slug: "king-edward-memorial",
       bookingSystem: "clubspark",
       bookingUrl: "https://clubspark.lta.org.uk/KingEdwardMemorialPark/Booking/BookByDate",
       location: "Glamis Road, London E1W 3TD",
+      enabled: false,
       metadata: {
         lat: 51.509016, lng: -0.049898,
         venue: "KingEdwardMemorialPark",
         deepLink: "https://clubspark.lta.org.uk/KingEdwardMemorialPark/Booking/BookByDate",
         courts: 4, surface: "Porous Macadam",
         pricing: { adult: "£4-6" },
+        note: "Closed on ClubSpark (Category 8000) as of 2026-03-21",
       },
     },
     // Disabled: requires ClubSpark login
@@ -434,16 +440,19 @@ async function main() {
         pricing: { standard: "£11/hr" },
       },
     },
+    // Disabled: renamed to BrookGreenTennis, requires ClubSpark login (MustAuthenticate: true)
     {
       name: "Brook Green Tennis",
       slug: "brook-green",
       bookingSystem: "clubspark",
-      bookingUrl: "https://clubspark.lta.org.uk/brookgreentennisclub/Booking/BookByDate",
+      bookingUrl: "https://clubspark.lta.org.uk/BrookGreenTennis/Booking/BookByDate",
       location: "Brook Green, London W14",
+      enabled: false,
       metadata: {
         lat: 51.495097, lng: -0.221977,
-        venue: "brookgreentennisclub",
-        deepLink: "https://clubspark.lta.org.uk/brookgreentennisclub/Booking/BookByDate",
+        venue: "BrookGreenTennis",
+        deepLink: "https://clubspark.lta.org.uk/BrookGreenTennis/Booking/BookByDate",
+        note: "Requires ClubSpark login (MustAuthenticate: true)",
       },
     },
     // === West London — Ealing ===
@@ -501,17 +510,20 @@ async function main() {
         pricing: { standard: "Free (booking required)" },
       },
     },
+    // Disabled: removed from ClubSpark (NotFound) as of 2026-03-21
     {
       name: "Perivale Park Tennis",
       slug: "perivale-park",
       bookingSystem: "clubspark",
       bookingUrl: "https://clubspark.lta.org.uk/PerivalePark/Booking/BookByDate",
       location: "Perivale Park, Greenford UB6 8TJ",
+      enabled: false,
       metadata: {
         lat: 51.531787, lng: -0.327495,
         venue: "PerivalePark",
         deepLink: "https://clubspark.lta.org.uk/PerivalePark/Booking/BookByDate",
         pricing: { standard: "Free (booking required)" },
+        note: "Removed from ClubSpark (NotFound) as of 2026-03-21",
       },
     },
     // === West London — Richmond ===
@@ -747,17 +759,20 @@ async function main() {
         pricing: { standard: "£3/hr" },
       },
     },
+    // Disabled: removed from ClubSpark (NotFound) as of 2026-03-21
     {
       name: "Altash Gardens Tennis",
       slug: "altash-gardens",
       bookingSystem: "clubspark",
       bookingUrl: "https://clubspark.lta.org.uk/AltashGardens/Booking/BookByDate",
       location: "Altash Gardens, London SE9 3AL",
+      enabled: false,
       metadata: {
         lat: 51.454633, lng: 0.067640,
         venue: "AltashGardens",
         deepLink: "https://clubspark.lta.org.uk/AltashGardens/Booking/BookByDate",
         pricing: { standard: "£3/hr" },
+        note: "Removed from ClubSpark (NotFound) as of 2026-03-21",
       },
     },
     // === Southwark ===
@@ -819,12 +834,12 @@ async function main() {
       name: "Brunswick Park Tennis",
       slug: "brunswick-park",
       bookingSystem: "clubspark",
-      bookingUrl: "https://clubspark.lta.org.uk/BrunswickParkSouthwark/Booking/BookByDate",
+      bookingUrl: "https://clubspark.lta.org.uk/BrunswickPark/Booking/BookByDate",
       location: "Brunswick Park, London SE5 7RH",
       metadata: {
         lat: 51.475195, lng: -0.085515,
-        venue: "BrunswickParkSouthwark",
-        deepLink: "https://clubspark.lta.org.uk/BrunswickParkSouthwark/Booking/BookByDate",
+        venue: "BrunswickPark",
+        deepLink: "https://clubspark.lta.org.uk/BrunswickPark/Booking/BookByDate",
         pricing: { peak: "£9.40/hr", offPeak: "£6.80/hr" },
       },
     },
@@ -936,57 +951,69 @@ async function main() {
       },
     },
     // === East London — Tower Hamlets (near Canary Wharf) ===
+    // Disabled: marked as Closed (Category 8000) on ClubSpark as of 2026-03-21
     {
       name: "Victoria Park Tennis",
       slug: "victoria-park",
       bookingSystem: "clubspark",
       bookingUrl: "https://clubspark.lta.org.uk/VictoriaParkLONDON/Booking/BookByDate",
       location: "Victoria Park, London E9 5DU",
+      enabled: false,
       metadata: {
         lat: 51.540360, lng: -0.033918,
         venue: "VictoriaParkLONDON",
         deepLink: "https://clubspark.lta.org.uk/VictoriaParkLONDON/Booking/BookByDate",
         courts: 4, surface: "Hard",
         pricing: { offPeak: "£4/hr", peak: "£6/hr" },
+        note: "Closed on ClubSpark (Category 8000) as of 2026-03-21",
       },
     },
+    // Disabled: marked as Closed (Category 8000) on ClubSpark as of 2026-03-21
     {
       name: "Poplar Rec Ground Tennis",
       slug: "poplar-rec-ground",
       bookingSystem: "clubspark",
       bookingUrl: "https://clubspark.lta.org.uk/PoplarRecGround/Booking/BookByDate",
       location: "Poplar Recreation Ground, London E14 0BP",
+      enabled: false,
       metadata: {
         lat: 51.510734, lng: -0.016257,
         venue: "PoplarRecGround",
         deepLink: "https://clubspark.lta.org.uk/PoplarRecGround/Booking/BookByDate",
         pricing: { offPeak: "£4/hr", peak: "£6/hr" },
+        note: "Closed on ClubSpark (Category 8000) as of 2026-03-21",
       },
     },
+    // Disabled: removed from ClubSpark (NotFound) as of 2026-03-21
     {
       name: "Ropemakers Fields Tennis",
       slug: "ropemakers-fields",
       bookingSystem: "clubspark",
       bookingUrl: "https://clubspark.lta.org.uk/RopemakersFields/Booking/BookByDate",
       location: "Ropemakers Fields, Limehouse, London E14 8BX",
+      enabled: false,
       metadata: {
         lat: 51.509676, lng: -0.031879,
         venue: "RopemakersFields",
         deepLink: "https://clubspark.lta.org.uk/RopemakersFields/Booking/BookByDate",
         pricing: { offPeak: "£4/hr", peak: "£6/hr" },
+        note: "Removed from ClubSpark (NotFound) as of 2026-03-21",
       },
     },
+    // Disabled: marked as Closed (Category 8000) on ClubSpark as of 2026-03-21
     {
       name: "Wapping Gardens Tennis",
       slug: "wapping-gardens",
       bookingSystem: "clubspark",
       bookingUrl: "https://clubspark.lta.org.uk/WappingGardens/Booking/BookByDate",
       location: "Wapping Gardens, London E1 2QE",
+      enabled: false,
       metadata: {
         lat: 51.504263, lng: -0.059901,
         venue: "WappingGardens",
         deepLink: "https://clubspark.lta.org.uk/WappingGardens/Booking/BookByDate",
         pricing: { offPeak: "£4/hr", peak: "£6/hr" },
+        note: "Closed on ClubSpark (Category 8000) as of 2026-03-21",
       },
     },
     // === East London — Redbridge ===
@@ -1046,12 +1073,12 @@ async function main() {
       name: "Barkingside Recreation Ground Tennis",
       slug: "barkingside-rec",
       bookingSystem: "clubspark",
-      bookingUrl: "https://clubspark.lta.org.uk/BarkingsideRecreationGround/Booking/BookByDate",
+      bookingUrl: "https://clubspark.lta.org.uk/BarkingsideRec/Booking/BookByDate",
       location: "Barkingside Recreation Ground, Ilford IG6 2PE",
       metadata: {
         lat: 51.588659, lng: 0.079622,
-        venue: "BarkingsideRecreationGround",
-        deepLink: "https://clubspark.lta.org.uk/BarkingsideRecreationGround/Booking/BookByDate",
+        venue: "BarkingsideRec",
+        deepLink: "https://clubspark.lta.org.uk/BarkingsideRec/Booking/BookByDate",
         pricing: { offPeak: "£3/hr", peak: "£6/hr" },
       },
     },
@@ -1165,17 +1192,20 @@ async function main() {
       },
     },
     // === East London — Redbridge (additional) ===
+    // Disabled: renamed to LoxfordParkTennis but no booking hours configured (empty resources)
     {
       name: "Loxford Park Tennis",
       slug: "loxford-park",
       bookingSystem: "clubspark",
-      bookingUrl: "https://clubspark.lta.org.uk/LoxfordPark/Booking/BookByDate",
+      bookingUrl: "https://clubspark.lta.org.uk/LoxfordParkTennis/Booking/BookByDate",
       location: "Loxford Park, Ilford IG1",
+      enabled: false,
       metadata: {
         lat: 51.548753, lng: 0.079406,
-        venue: "LoxfordPark",
-        deepLink: "https://clubspark.lta.org.uk/LoxfordPark/Booking/BookByDate",
+        venue: "LoxfordParkTennis",
+        deepLink: "https://clubspark.lta.org.uk/LoxfordParkTennis/Booking/BookByDate",
         pricing: { offPeak: "£3/hr", peak: "£6/hr" },
+        note: "Venue renamed to LoxfordParkTennis; no booking hours configured (empty resources)",
       },
     },
     {
