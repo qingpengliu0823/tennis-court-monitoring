@@ -1,4 +1,7 @@
 import "dotenv/config";
+import { readFileSync, writeFileSync, existsSync } from "node:fs";
+import { resolve, dirname } from "node:path";
+import { fileURLToPath } from "node:url";
 
 interface ScrapeResult {
   slots: Array<{
@@ -290,6 +293,52 @@ async function main() {
   }
 
   console.log(`  ${passed.length}/${results.length} passed, ${failed.length} failed\n`);
+
+  // ── Phase 4: Write report to docs/test-results.md ────────────────
+  const __dirname = dirname(fileURLToPath(import.meta.url));
+  const reportPath = resolve(__dirname, "../docs/test-results.md");
+  const now = new Date();
+  const timestamp = now.toISOString().replace("T", " ").slice(0, 19);
+
+  let newEntry = `## ${timestamp}\n\n`;
+  newEntry += `**${passed.length}/${results.length} passed, ${failed.length} failed**\n\n`;
+
+  if (failed.length > 0) {
+    newEntry += "| Court | Adapter | Slots | Error |\n";
+    newEntry += "|-------|---------|------:|-------|\n";
+    for (const r of failed) {
+      const allErrors = [...r.metadataErrors, ...r.validationErrors];
+      const slots = r.scrapeResult?.slots.length ?? 0;
+      newEntry += `| ${r.name} (\`${r.slug}\`) | ${r.adapter} | ${slots} | ${allErrors.join("; ")} |\n`;
+    }
+    newEntry += "\n";
+  } else {
+    newEntry += "All courts passed.\n\n";
+  }
+
+  newEntry += "---\n\n";
+
+  // Read existing report or create header
+  let existing = "";
+  if (existsSync(reportPath)) {
+    existing = readFileSync(reportPath, "utf-8");
+  }
+
+  if (!existing.startsWith("# Court Monitoring Test Results")) {
+    existing = "# Court Monitoring Test Results\n\nTest history from `npm run test:all`. Most recent results first.\n\n---\n\n";
+  }
+
+  // Insert new entry after the header (after first "---")
+  const headerEnd = existing.indexOf("---\n\n");
+  if (headerEnd !== -1) {
+    const header = existing.slice(0, headerEnd + 5);
+    const rest = existing.slice(headerEnd + 5);
+    writeFileSync(reportPath, header + newEntry + rest, "utf-8");
+  } else {
+    writeFileSync(reportPath, existing + newEntry, "utf-8");
+  }
+
+  console.log(`  Report written to docs/test-results.md\n`);
 
   await prisma.$disconnect();
   process.exit(failed.length > 0 ? 1 : 0);
