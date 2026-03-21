@@ -3,7 +3,7 @@ import { getAdapter } from "./scrapers/registry";
 import { diffSlots, storeSnapshot } from "./diff";
 import { notifyNewSlots } from "./notifier";
 
-const MAX_CONCURRENT = 2;
+const MAX_CONCURRENT = 10;
 let running = false;
 
 /**

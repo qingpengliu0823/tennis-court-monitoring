@@ -1,14 +1,4 @@
-import { chromium, type Browser } from "playwright";
 import type { CourtAdapter, ScrapedSlot, ScrapeResult } from "./types";
-
-let browserInstance: Browser | null = null;
-
-async function getBrowser(): Promise<Browser> {
-  if (!browserInstance || !browserInstance.isConnected()) {
-    browserInstance = await chromium.launch({ headless: true });
-  }
-  return browserInstance;
-}
 
 function minutesToTime(minutes: number): string {
   const h = Math.floor(minutes / 60);
@@ -16,110 +6,117 @@ function minutesToTime(minutes: number): string {
   return `${String(h).padStart(2, "0")}:${String(m).padStart(2, "0")}`;
 }
 
-// Evaluate script run inside the browser context (string to avoid tsx __name issues)
-const EXTRACT_SLOTS_SCRIPT = `
-(function() {
-  var results = [];
-  var sessions = document.querySelectorAll(".resource-session");
-  for (var i = 0; i < sessions.length; i++) {
-    var s = sessions[i];
-    var available = s.getAttribute("data-availability") === "true";
-    var startMin = parseInt(s.getAttribute("data-start-time") || "0");
-    var endMin = parseInt(s.getAttribute("data-end-time") || "0");
-    var cost = s.getAttribute("data-session-cost");
-    var memberCost = s.getAttribute("data-session-member-cost");
-
-    var resource = s.closest(".resource");
-    var courtName = resource ? resource.getAttribute("data-resource-name") || "Unknown" : "Unknown";
-    var infoEl = resource ? resource.querySelector(".resource-info") : null;
-    var courtInfo = infoEl ? infoEl.getAttribute("title") : null;
-
-    function pad(n) { return n < 10 ? "0" + n : "" + n; }
-    results.push({
-      courtLabel: courtName,
-      startTime: pad(Math.floor(startMin / 60)) + ":" + pad(startMin % 60),
-      endTime: pad(Math.floor(endMin / 60)) + ":" + pad(endMin % 60),
-      available: available,
-      cost: cost,
-      memberCost: memberCost,
-      courtInfo: courtInfo
-    });
-  }
-  return results;
-})()
-`;
+interface VenueSessionsResponse {
+  TimeZone: string;
+  EarliestStartTime: number;
+  LatestEndTime: number;
+  MinimumInterval: number;
+  Resources: Array<{
+    ID: string;
+    Name: string;
+    Lighting: number;
+    Surface: number;
+    Days: Array<{
+      Date: string; // "2026-03-21T00:00:00"
+      Sessions: Array<{
+        Category: number; // 0 = available, 1000 = booked
+        Name: string;
+        StartTime: number; // minutes from midnight
+        EndTime: number;
+        Interval: number;
+        Capacity?: number;
+        Cost?: number;
+        MemberPrice?: number;
+        CourtCost?: number;
+        LightingCost?: number;
+      }>;
+    }>;
+  }>;
+}
 
 /**
- * Scrape ClubSpark/LTA booking pages for tennis court availability.
+ * ClubSpark/LTA adapter using the internal JSON API.
  *
- * Page structure (verified 2026-03-20):
- *   URL pattern: {venue}/Booking/BookByDate#?date=YYYY-MM-DD&role=guest
- *   Client-rendered — JS reads hash fragment to load the booking grid via AJAX.
+ * API endpoint (verified 2026-03-21):
+ *   GET /v0/VenueBooking/{venue}/GetVenueSessions
+ *       ?resourceID=&startDate=YYYY-MM-DD&endDate=YYYY-MM-DD&roleId=
  *
- *   Booking grid: .carousel > ul > li > .resource-wrap > .resource
- *     .resource has data-resource-name="Court 1", data-resource-id
- *     .resource-info[title] = "Court 1 - Full, Outdoor, Incandescent Lighting, Hard"
+ *   Returns structured JSON: Resources[] > Days[] > Sessions[]
+ *   - Category 0 sessions = available for booking (includes Cost, MemberPrice)
+ *   - Category 1000 sessions = already booked
+ *   - No session at a time slot = court closed
  *
- *   Time slots: .resource-session inside each .resource
- *     data-availability="true"/"false"
- *     data-start-time, data-end-time (minutes from midnight, e.g. 420 = 07:00)
- *     data-session-cost (price in £, e.g. "7")
- *     data-session-member-cost (member price)
- *     data-capacity (number of bookable slots)
- *     data-resource-interval (slot duration in minutes)
+ *   Supports multi-day range in a single request (7 days in one call).
+ *   No authentication required for public courts.
  *
- * metadata.venue: ClubSpark venue slug (extracted from bookingUrl if not set)
- * metadata.deepLink: URL for users to book (defaults to bookingUrl)
+ * metadata.venue: ClubSpark venue slug (e.g. "FinsburyPark")
  */
 const clubsparkAdapter: CourtAdapter = {
   name: "clubspark",
 
   async scrape(courtId: string, bookingUrl: string, metadata?: Record<string, unknown>): Promise<ScrapeResult> {
     const start = Date.now();
-    const browser = await getBrowser();
-    const page = await browser.newPage();
-    const slots: ScrapedSlot[] = [];
 
     try {
-      // Scan 7 days forward
-      const dates: string[] = [];
-      for (let i = 0; i < 7; i++) {
-        const d = new Date(Date.now() + i * 86400000);
-        dates.push(d.toISOString().split("T")[0]);
+      // Extract venue slug from metadata or bookingUrl
+      const venue =
+        (metadata?.venue as string) ||
+        bookingUrl.match(/clubspark\.lta\.org\.uk\/([^/]+)\//)?.[1];
+
+      if (!venue) {
+        return {
+          slots: [],
+          adapter: "clubspark",
+          durationMs: Date.now() - start,
+          error: "Could not determine venue slug from metadata or bookingUrl",
+        };
       }
 
-      for (const date of dates) {
-        // ClubSpark uses hash fragment for date navigation
-        const url = `${bookingUrl}#?date=${date}&role=guest`;
-        await page.goto(url, { waitUntil: "networkidle", timeout: 30000 });
-        await page.waitForTimeout(2000);
+      // Build 7-day date range
+      const startDate = new Date().toISOString().split("T")[0];
+      const endDate = new Date(Date.now() + 6 * 86400000).toISOString().split("T")[0];
 
-        // Wait for booking grid to render
-        await page.waitForSelector(".resource-session", { timeout: 10000 }).catch(() => null);
+      const url =
+        `https://clubspark.lta.org.uk/v0/VenueBooking/${venue}/GetVenueSessions` +
+        `?resourceID=&startDate=${startDate}&endDate=${endDate}&roleId=`;
 
-        const daySlots = await page.evaluate(EXTRACT_SLOTS_SCRIPT) as Array<{
-          courtLabel: string;
-          startTime: string;
-          endTime: string;
-          available: boolean;
-          cost: string | null;
-          memberCost: string | null;
-          courtInfo: string | null;
-        }>;
+      const resp = await fetch(url, {
+        headers: { Accept: "application/json" },
+        signal: AbortSignal.timeout(15_000),
+      });
 
-        for (const s of daySlots) {
-          slots.push({
-            date,
-            startTime: s.startTime,
-            endTime: s.endTime,
-            available: s.available,
-            courtLabel: s.courtLabel,
-            rawData: {
-              ...(s.cost != null && { price: `£${s.cost}` }),
-              ...(s.memberCost != null && { memberPrice: `£${s.memberCost}` }),
-              ...(s.courtInfo && { courtInfo: s.courtInfo }),
-            },
-          });
+      if (!resp.ok) {
+        return {
+          slots: [],
+          adapter: "clubspark",
+          durationMs: Date.now() - start,
+          error: `API returned ${resp.status} ${resp.statusText}`,
+        };
+      }
+
+      const data: VenueSessionsResponse = await resp.json();
+      const slots: ScrapedSlot[] = [];
+
+      for (const resource of data.Resources) {
+        for (const day of resource.Days) {
+          const date = day.Date.split("T")[0];
+
+          for (const session of day.Sessions) {
+            // Only map known categories
+            if (session.Category !== 0 && session.Category !== 1000) continue;
+
+            slots.push({
+              date,
+              startTime: minutesToTime(session.StartTime),
+              endTime: minutesToTime(session.EndTime),
+              available: session.Category === 0,
+              courtLabel: resource.Name,
+              rawData: {
+                ...(session.Cost != null && session.Cost > 0 && { price: `£${session.Cost}` }),
+                ...(session.MemberPrice != null && session.MemberPrice > 0 && { memberPrice: `£${session.MemberPrice}` }),
+              },
+            });
+          }
         }
       }
 
@@ -136,8 +133,6 @@ const clubsparkAdapter: CourtAdapter = {
         durationMs: Date.now() - start,
         error: message,
       };
-    } finally {
-      await page.close();
     }
   },
 };
