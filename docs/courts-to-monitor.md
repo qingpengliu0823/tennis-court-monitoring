@@ -1,6 +1,6 @@
 # Tennis Courts to Monitor — London
 
-66 courts selected for monitoring feasibility.
+85 courts selected for monitoring feasibility.
 
 ## Booking Systems
 
@@ -8,7 +8,7 @@
 |--------|---------|--------|
 | Microsoft Bookings | `microsoft_bookings` | Working |
 | Better/GLL | `better` | Working |
-| ClubSpark/LTA | `clubspark` | Working (49 enabled, 4 need login) |
+| ClubSpark/LTA | `clubspark` | Working (69 enabled, 4 need login) |
 | Courtside (Tower Hamlets) | `clubspark` | Migrated to ClubSpark (2 enabled, 1 needs login) |
 | Camden Active | `camden_active` | Working (3 venues, 12 courts) |
 | Flow.onl (Royal Parks) | `flow_onl` | Working (3 venues) |
@@ -210,6 +210,14 @@
 - Southwark: Burgess Park, Dulwich Park, Belair Park, Tanner Street Park, Brunswick Park
 - Lambeth: Ruskin Park, Vauxhall Park, Hillside Gardens Park
 - Other: West Ham Park, Honor Oak Recreation Ground
+
+**Phase 8 — East London ClubSpark courts (20 venues):**
+- Tower Hamlets: Victoria Park, Poplar Rec Ground, Ropemakers Fields, Wapping Gardens
+- Redbridge: Valentines Park, Clayhall Park, Seven Kings Park, Goodmayes Park, Barkingside Rec, Ray Park, Loxford Park, Barley Lane Rec
+- Barking & Dagenham: Barking Park
+- Newham: Roman Park
+- Havering: Raphael Park
+- Haringey: Priory Park, Downhills Park, Chestnuts Park, Markfield Park
 
 ## West London Courts
 
@@ -504,6 +512,115 @@
 - **Booking URL:** `https://sportsandleisureroyalparks.bookings.flow.onl/location/greenwich-park-courts/tennis`
 - **Location:** Greenwich Park, SE10 8QY
 - **Courts:** 6
+
+## East London Courts
+
+### 67. Victoria Park
+- **System:** ClubSpark (`clubspark`) — LIVE
+- **Booking URL:** `https://clubspark.lta.org.uk/VictoriaParkLONDON/Booking/BookByDate`
+- **Location:** Victoria Park, E9 5DU
+- **Courts:** 4 hard
+- **Specs:** £4 off-peak, £6 peak
+
+### 68. Poplar Rec Ground
+- **System:** ClubSpark (`clubspark`) — LIVE
+- **Booking URL:** `https://clubspark.lta.org.uk/PoplarRecGround/Booking/BookByDate`
+- **Location:** Poplar Recreation Ground, E14 0BP (near Canary Wharf)
+- **Specs:** £4 off-peak, £6 peak
+
+### 69. Ropemakers Fields
+- **System:** ClubSpark (`clubspark`) — LIVE
+- **Booking URL:** `https://clubspark.lta.org.uk/RopemakersFields/Booking/BookByDate`
+- **Location:** Ropemakers Fields, Limehouse, E14 8BX
+- **Specs:** £4 off-peak, £6 peak
+
+### 70. Wapping Gardens
+- **System:** ClubSpark (`clubspark`) — LIVE
+- **Booking URL:** `https://clubspark.lta.org.uk/WappingGardens/Booking/BookByDate`
+- **Location:** Wapping Gardens, E1 2QE
+- **Specs:** £4 off-peak, £6 peak
+
+### 71. Valentines Park
+- **System:** ClubSpark (`clubspark`) — LIVE
+- **Booking URL:** `https://clubspark.lta.org.uk/ValentinesPark/Booking/BookByDate`
+- **Location:** Valentines Park, Ilford IG1
+- **Specs:** £3 off-peak, £6 peak
+
+### 72. Clayhall Park
+- **System:** ClubSpark (`clubspark`) — LIVE
+- **Booking URL:** `https://clubspark.lta.org.uk/ClayhallPark/Booking/BookByDate`
+- **Location:** Clayhall Park, Ilford IG5
+
+### 73. Seven Kings Park
+- **System:** ClubSpark (`clubspark`) — LIVE
+- **Booking URL:** `https://clubspark.lta.org.uk/SevenKingsPark/Booking/BookByDate`
+- **Location:** Seven Kings Park, Ilford IG3
+
+### 74. Goodmayes Park
+- **System:** ClubSpark (`clubspark`) — LIVE
+- **Booking URL:** `https://clubspark.lta.org.uk/GoodmayesPark/Booking/BookByDate`
+- **Location:** Goodmayes Park, Ilford IG3
+
+### 75. Barkingside Recreation Ground
+- **System:** ClubSpark (`clubspark`) — LIVE
+- **Booking URL:** `https://clubspark.lta.org.uk/BarkingsideRecreationGround/Booking/BookByDate`
+- **Location:** Barkingside Recreation Ground, Ilford IG6
+
+### 76. Ray Park
+- **System:** ClubSpark (`clubspark`) — LIVE
+- **Booking URL:** `https://clubspark.lta.org.uk/RayPark/Booking/BookByDate`
+- **Location:** Ray Park, Woodford Green IG7
+
+### 77. Barking Park
+- **System:** ClubSpark (`clubspark`) — LIVE
+- **Booking URL:** `https://clubspark.lta.org.uk/BarkingPark/Booking/BookByDate`
+- **Location:** Barking Park, Barking IG11
+
+### 78. Roman Park
+- **System:** ClubSpark (`clubspark`) — LIVE
+- **Booking URL:** `https://clubspark.lta.org.uk/RomanParkTennis/Booking/BookByDate`
+- **Location:** Roman Park, Newham
+
+### 79. Raphael Park
+- **System:** ClubSpark (`clubspark`) — LIVE
+- **Booking URL:** `https://clubspark.lta.org.uk/RaphaelPark/Booking/BookByDate`
+- **Location:** Raphael Park, Romford RM2 5EB
+- **Courts:** 12 tarmac
+- **Specs:** £6/hr, off-peak £4 (weekday 9am-12pm)
+
+### 80. Priory Park
+- **System:** ClubSpark (`clubspark`) — LIVE
+- **Booking URL:** `https://clubspark.lta.org.uk/PrioryPark2/Booking/BookByDate`
+- **Location:** Priory Park, Haringey N8
+- **Courts:** 4
+- **Specs:** £6/hr peak, free Mon-Fri before 4pm
+
+### 81. Downhills Park
+- **System:** ClubSpark (`clubspark`) — LIVE
+- **Booking URL:** `https://clubspark.lta.org.uk/downhillsparktennisclub/Booking/BookByDate`
+- **Location:** Downhills Park, N17 6PD
+- **Courts:** 2
+- **Specs:** £6/hr peak, free Mon-Fri before 4pm
+
+### 82. Chestnuts Park
+- **System:** ClubSpark (`clubspark`) — LIVE
+- **Booking URL:** `https://clubspark.lta.org.uk/ChestnutsPark/Booking/BookByDate`
+- **Location:** Chestnuts Park, N15
+
+### 83. Markfield Park
+- **System:** ClubSpark (`clubspark`) — LIVE
+- **Booking URL:** `https://clubspark.lta.org.uk/MarkfieldPark/Booking/BookByDate`
+- **Location:** Markfield Park, N15
+
+### 84. Loxford Park
+- **System:** ClubSpark (`clubspark`) — LIVE
+- **Booking URL:** `https://clubspark.lta.org.uk/LoxfordPark/Booking/BookByDate`
+- **Location:** Loxford Park, Ilford IG1
+
+### 85. Barley Lane Rec
+- **System:** ClubSpark (`clubspark`) — LIVE
+- **Booking URL:** `https://clubspark.lta.org.uk/BarleyLaneRecGround/Booking/BookByDate`
+- **Location:** Barley Lane Recreation Ground, Ilford IG3
 
 ## Notes
 - **Tufnell Park** excluded — Better venue but booking URL unverified
